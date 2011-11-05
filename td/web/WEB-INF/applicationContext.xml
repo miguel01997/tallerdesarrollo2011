@@ -49,6 +49,7 @@
 
     <bean name="crearusuario" class="controlador.cCrearUsuario"></bean> 
     <bean name="modificarusuario" class="controlador.cModificarUsuario"></bean>
+    <bean name="wizard" class="wizard.cWizard"></bean>
     
     
 
