@@ -37,6 +37,7 @@
                 <prop key="eliminarModelo.htm">eliminarmodelo</prop>
                 <prop key="eliminarUsuario.htm">eliminarusuario</prop>
                 <prop key="eliminarAnuncio.htm">eliminaranuncio</prop>
+                <prop key="wizard.htm">wizard</prop>
             </props>
         </property>
     </bean>
