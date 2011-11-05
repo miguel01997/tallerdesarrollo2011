@@ -59,7 +59,7 @@ import org.springframework.validation.Validator;
     @Column(name = "anio")
     private Integer anio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codmodelo")
-    private Collection<Vehiculo> vehiculoCollection;
+    private Collection<Vehiculo> tiene;
 
     public Modelo() {
     }
@@ -103,12 +103,12 @@ import org.springframework.validation.Validator;
  
 
     @XmlTransient
-    public Collection<Vehiculo> getVehiculoCollection() {
-        return vehiculoCollection;
+    public Collection<Vehiculo> gettiene() {
+        return tiene;
     }
 
-    public void setVehiculoCollection(Collection<Vehiculo> vehiculoCollection) {
-        this.vehiculoCollection = vehiculoCollection;
+    public void settiene(Collection<Vehiculo> tiene) {
+        this.tiene = tiene;
     }
 
     @Override
@@ -195,7 +195,7 @@ import org.springframework.validation.Validator;
            this.anio = mm.getAnio();
            this.marca = mm.getMarca();
            this.nombre=mm.getNombre();
-           this.vehiculoCollection=mm.getVehiculoCollection();
+           this.tiene=mm.gettiene();
         }
      }
   

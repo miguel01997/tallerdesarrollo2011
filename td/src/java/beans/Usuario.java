@@ -60,7 +60,7 @@ import org.springframework.jdbc.core.RowMapper;
     @Column(name = "tipo")
     private String tipo;
     //@OneToMany(mappedBy = "codusuario")
-   private Collection<Anuncio> anuncioCollection;
+   private Collection<Anuncio> publica;
 
     public Usuario() {
     }
@@ -118,12 +118,12 @@ import org.springframework.jdbc.core.RowMapper;
     }
 
     @XmlTransient
-    public Collection<Anuncio> getAnuncioCollection() {
-        return anuncioCollection;
+    public Collection<Anuncio> getPublica() {
+        return publica;
     }
 
-    public void setAnuncioCollection(Collection<Anuncio> anuncioCollection) {
-        this.anuncioCollection = anuncioCollection;
+    public void setPublica(Collection<Anuncio> publica) {
+        this.publica = publica;
     }
 
     @Override
@@ -183,7 +183,7 @@ import org.springframework.jdbc.core.RowMapper;
         em.close();
         if(mm!= null){
            
-           this.anuncioCollection = mm.getAnuncioCollection();
+           this.publica = mm.getPublica();
            this.apellido = mm.getApellido();
            this.edad = mm.getEdad();
            this.email = mm.getEmail();

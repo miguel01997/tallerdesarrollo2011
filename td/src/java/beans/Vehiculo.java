@@ -56,7 +56,7 @@ public class Vehiculo implements Serializable {
     @Column(name = "foto")
     private BigInteger foto;
     @OneToMany(mappedBy = "codvehiculo")
-    private Collection<Anuncio> anuncioCollection;
+    private Collection<Anuncio> posee;
     @JoinColumn(name = "codmodelo", referencedColumnName = "codmodelo")
     @ManyToOne(optional = false)
     private Modelo codmodelo;
@@ -112,12 +112,12 @@ public class Vehiculo implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Anuncio> getAnuncioCollection() {
-        return anuncioCollection;
+    public Collection<Anuncio> getPosee() {
+        return posee;
     }
 
-    public void setAnuncioCollection(Collection<Anuncio> anuncioCollection) {
-        this.anuncioCollection = anuncioCollection;
+    public void setPosee(Collection<Anuncio> posee) {
+        this.posee = posee;
     }
 
     public Modelo getCodmodelo() {
@@ -201,7 +201,7 @@ public class Vehiculo implements Serializable {
         em.getTransaction().commit();
         em.close();
         if(mm!= null){
-           this.anuncioCollection = mm.getAnuncioCollection();
+           this.posee = mm.getPosee();
            this.codmodelo = mm.getCodmodelo();
            this.color=mm.getColor();
            this.foto=mm.getFoto();
