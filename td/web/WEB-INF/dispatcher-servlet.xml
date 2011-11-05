@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+                <prop key="usuario.htm">uv</prop>
+                <prop key="crearUsuario.htm">crearusuario</prop>
+                <prop key="crearAnuncio.htm">crearanuncio</prop>
+                <prop key="vehiculo.htm">vvehiculo</prop>
+                <prop key="crearVehiculo.htm">crearvehiculo</prop>
+                <prop key="eliminarVehiculo.htm">eliminarvehiculo</prop>
+                <prop key="modificarVehiculo.htm">modificarvehiculo</prop>
+                <prop key="modificarUsuario.htm">modificarusuario</prop>
+                
+                <prop key="anuncio.htm">vanuncio</prop>
+                
+                <prop key="modelo.htm">vmodelo</prop>
+                <prop key="crearModelo.htm">crearmodelo</prop>
+                <prop key="modificarModelo.htm">modificarmodelo</prop>
+                <prop key="modificarAnuncio.htm">modificaranuncio</prop>
+                <prop key="eliminarModelo.htm">eliminarmodelo</prop>
+                <prop key="eliminarUsuario.htm">eliminarusuario</prop>
+                <prop key="eliminarAnuncio.htm">eliminaranuncio</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+    
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+      
+    
+    
+     
+   
+  
+   
+        
+        
+        
+    
+</beans>

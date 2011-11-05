@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+    <!--bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
+    
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.url}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}" /-->
+    
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+    
+    <!-- DataSource PostgreSQL -->
+	
+    <!--   <bean id="dataSource"  
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"  
+        p:driverClassName="org.postgresql.Driver"  
+        p:url="jdbc:postgresql://localhost:5432/baseDato" p:username="usuarios"  
+        p:password="usuario"   
+        /> 
+   
+        <bean id="prpr" class="Dao.conexion">
+          <property name="ds" ref="dataSource"/>    
+        </bean>  -->
+     
+    
+    
+    <bean id="vvehiculo" class="controlador.cVehiculo" ></bean>
+    <bean id="crearvehiculo" class="controlador.cCrearVehiculo" ></bean>
+    <bean id="eliminarvehiculo" class="controlador.cEliminarVehiculo" ></bean>
+    <bean id="modificarvehiculo" class="controlador.cModificarVehiculo" ></bean>
+    
+    <bean id="vmodelo" class="controlador.cModelo" ></bean>
+    <bean id="uv" class="controlador.resulUsuarios" ></bean>
+     
+    <bean name="vanuncio" class="controlador.cAnuncio"></bean> 
+    
+
+    <bean name="crearusuario" class="controlador.cCrearUsuario"></bean> 
+    <bean name="modificarusuario" class="controlador.cModificarUsuario"></bean>
+    
+    
+
+     
+     <bean name="modificarmodelo" class="controlador.cmodificarModelo"></bean> 
+     <bean name="modificaranuncio" class="controlador.cModificarAnuncio"></bean> 
+     <bean name="crearmodelo" class="controlador.cCrearModelo"></bean>
+     <bean name="crearanuncio" class="controlador.cCrearAnuncio"></bean>
+     <bean name="eliminarmodelo" class="controlador.cEliminarModelo"></bean>
+     <bean name="eliminarusuario" class="controlador.cEliminarUsuario"></bean>
+     <bean name="eliminaranuncio" class="controlador.cEliminarAnuncio"></bean>
+</beans>
