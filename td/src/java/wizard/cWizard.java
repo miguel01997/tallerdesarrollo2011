@@ -36,8 +36,10 @@ public class cWizard extends AbstractController {
               // TODO code application logic 
             String archivoPersistencia = "/var/www/jsp/tds/td/src/conf/persistence.xml";
             parsearArchivoPersistencia p =  new parsearArchivoPersistencia(archivoPersistencia);
-           
-            HashMap parseo=p.mapaClaseAtributos();
+          
+            HashMap<String,ArrayList<String>> parseo=p.mapaClaseAtributos();
+            //parseo.get(p).iterator()
+            
             Set clavesSet=parseo.keySet();
             List<String> claves = new ArrayList<String>(clavesSet);
             

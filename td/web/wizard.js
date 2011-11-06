@@ -19,10 +19,20 @@
   
       function llenarlista(id,tabla){
           var elem = document.getElementById(id);
+          //alert(tabla);
           var newhtml = "";
-          var arr = map[tabla];
+          var m = tabla.toString();
+          
+          var m2 = m.slice(1, m.length-1)
+         // alert(m2);
+          //tabla = tabla.pop();
+          //alert(tabla);
+          var aux = m2.split(',');
+          
+          //alert(aux);
+          var arr = aux;
           for (var i in arr){
-              alert(arr[i]);
+              //alert(arr[i]);
               var atr = arr[i];
               newhtml += "<input type='checkbox' name=atr"+i+" value='"+atr+"'>"+atr+"<br>";
           }
@@ -176,7 +186,5 @@
         //Saca el predicado de la lista de predicados
         var pos = tr.id;
          //predicados.
-        
-        
         
     }
