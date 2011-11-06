@@ -10,42 +10,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<head>
+   <script type="text/javascript" src="wizard.js"></script> 
+</head>
+    
     <li><a href="index.htm" accesskey="5" title="">Volver</a></li>
   
-  <body>
-    <script language="Javascript">
-
-      var map = new Array();
-      var arr1 = ['atr1','atr2'];
-      var arr2 = ['atr3','atr4'];
-      map['tabla1'] = arr1;
-      map['tabla2'] = arr2;
+    <body >
       
-      
-      function llenarlista(id,tabla){
-          var elem = document.getElementById(id);
-          var newhtml = "";
-          var arr = map[tabla];
-          for (var i in arr){
-              alert(arr[i]);
-              var atr = arr[i];
-              newhtml += "<input type='checkbox' name=atr"+i+" value='"+atr+"'>"+atr+"<br>";
-          }
-          elem.innerHTML = newhtml;
-          
-      }
-      
-      function agregarElemento(idtabla,elem){
-          var table = document.getElementById(idtabla);
-          var row = table.insertRow(-1);
-          var cell1 = row.insertCell(0);
-          cell1.innerHTML = elem;
-          var cell2 = row.insertCell(1);
-          cell2.innerHTML = "<input type='button' value='X'>";
-      }
-      
-      
-    </script>
+   
     
     <select id="listatablas" onchange="llenarlista('uno',value)">
         <option value=""></option>
@@ -154,3 +127,90 @@
             </td>
         </tr>
     </table>
+
+    
+    <br/>
+    <hr/>
+    
+    <div id="marcoTextoOCL" >
+    
+        <h2>OCL</h2>
+        
+        <textarea rows="10" cols="60%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
+        <br/>
+
+        <button id="agregarOCL" onclick="necesitaConector('v4_2_1','v4_1','v4_0')">Agregar elemento</button>
+        
+        
+            
+       
+    </div>
+    
+    
+    
+    <div id="v4_0" hidden="true">
+        <hr/>
+        <h2>CONECTOR</h2>
+          
+          <select id="conector"  >
+                 <option value="AND">AND</option>
+                 <option value="OR">OR</option>
+          </select>
+          <br/>
+          <button id="sig_v4_2_1v1" onclick="ocultarVentana('v4_0')" >Atras</button>
+          <button id="sig_v4_2_1v2" onclick="cambiarVentana('v4_0','v4_1')" >Siguiente</button>
+        
+    </div>
+    
+    <div   id="v4_1" hidden="true" >
+        <hr/>
+        <h2>Insertar</h2>
+        <input id="pred" checked="true" type=radio name="selec" value="Predicado"  >Predicado</input>
+        <input id ="cuanti" type=radio name="selec" value="Cuantificador">Cuantificador</input>
+                    <br/>
+                    <button id="Atrasv4_1" onclick="ocultarVentana('v4_1')">Atras</button>
+                    <button id="sig_v4_2_1" onclick="verificarRadioBotton('pred','cuanti')">Siguiente</button>
+    </div>
+    
+    <!-- PREDICADO-->
+        <div   id="v4_2_1" hidden="true" >
+        <hr/>
+        <h2>Predicado</h2>
+                <!-- Atributos -->
+                <select id="listaAtt" name="predS" >
+                 <option value="ATT1">ATT1</option>
+                 <option value="ATT2">ATT2</option>
+                 </select>
+                <!-- Comparadores -->
+                <select id="listaAtt" name="predS" >
+                 <option value="CMP1">CMP1</option>
+                 <option value="CMP2">CMP2</option>
+                 </select>
+                
+                <!-- Modificador -->
+                 <select id="listaAtt" name="predS" >
+                 <option value="MOD1">MOD1</option>
+                 <option value="MOD2">MOD2</option>
+                 </select>
+                
+                <!-- PREDICADOS -->
+                <select id="listaAtt" name="predS" >
+                 <option value="PRED1">PRED1</option>
+                 <option value="PRED2">PRED2</option>
+                 </select>
+                <br/>
+                
+                
+                
+        
+                     <br/>
+                     <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')('v4_1')">Atras</button>
+                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS')">Agregar Predicado</button>
+        
+        
+        </div>
+
+    
+    
+  </body>
+</html>
