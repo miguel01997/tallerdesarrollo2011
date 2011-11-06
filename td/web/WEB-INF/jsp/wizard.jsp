@@ -29,12 +29,14 @@
       
     
     
-     <select id="listatablas"  >
+      <select id="listatablas" onchange="llenarlista('uno',value)" >
         
                           <%-- <option value=""></option> --%>>
     
-                            <c:forEach items="${listatablas}" var="p" >
-                             <option value="${p}">${p}</option>
+                            <c:forEach items="${hashMap}" var="p" >
+                                 
+                             <option value="${p.value}">${p.key}</option>
+                             
                             </c:forEach>
                 
                 </select>
@@ -239,10 +241,6 @@
                      <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')('v4_1')">Atras</button>
                      <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','Tabla')">Agregar Predicado</button>
         
-        
         </div>
-
-    
-    
   </body>
 </html>
