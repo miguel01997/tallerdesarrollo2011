@@ -44,7 +44,7 @@ public class prueba {
             System.out.println("Imprime El Mapa del archivo de Persistencia");
         try {
             //Buscar Mapa
-            System.out.print(p.mapaClaseAtributos());
+            System.out.println(p.mapaClaseAtributos());
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(prueba.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
@@ -54,8 +54,8 @@ public class prueba {
         }
             
         
-        
-        
+        System.out.println("Relaciones");
+        System.out.println(p.buscarRelaciones("beans.Vehiculo"));
         
         
         

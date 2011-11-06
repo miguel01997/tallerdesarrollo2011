@@ -10,6 +10,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -98,13 +100,12 @@ public class parsearArchivoPersistencia {
     public ArrayList<String> atributosDeClase(String clase) throws ClassNotFoundException{
     
         Class userClass = Class.forName(clase);
-        Field[] userFields = userClass.getDeclaredFields();
         Method[] userMethods = userClass.getDeclaredMethods();
         //System.out.println(clase + "  "+userFields.length);
         ArrayList atributos = new ArrayList();
         
         for(int i = 0; i<userMethods.length;i++){
-            System.out.println(userMethods[i].getName().substring(0, 3));
+           // System.out.println(userMethods[i].getName().substring(0, 3));
             String nombre = userMethods[i].getName();
             if(nombre.length()>3 
               && nombre.substring(0,3).equals("get")){
@@ -144,6 +145,27 @@ public class parsearArchivoPersistencia {
         }
         return mapa;
         
+    }
+    
+    
+    /**Busca para una tabla las relaciones*/
+    
+    public ArrayList<String> buscarRelaciones(String clase) throws ClassNotFoundException{
+         
+        ArrayList<String> relaciones = new ArrayList();
+         
+           //trae la lista de atributos de la tabla y su tipo
+        Class userClass = Class.forName(clase);
+        Field[] userFields = userClass.getDeclaredFields();
+        for(int i = 0; i< userFields.length;i++){
+            String nClase = userFields[i].getType().getSimpleName();
+            if(nClase.equals("Collection")){
+                relaciones.add(userFields[i].getName());
+            }
+           
+        }
+        
+        return relaciones;
     }
     
     
