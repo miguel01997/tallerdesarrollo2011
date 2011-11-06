@@ -173,7 +173,7 @@
         var tr = td.parentNode;
         var table = tr.parentNode;
         table.removeChild(tr);
-        alert(tr.id);
+        
     }
     
     //elimina celda de lista de predicados
