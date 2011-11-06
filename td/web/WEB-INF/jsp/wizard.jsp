@@ -16,15 +16,34 @@
     
     <li><a href="index.htm" accesskey="5" title="">Volver</a></li>
   
-    <body >
-      
-   
+
+  <body>
     
-    <select id="listatablas" onchange="llenarlista('uno',value)">
+   
+
+          
+    
+     
+      
+
+      
+    
+    
+     <select id="listatablas"  >
+        
+                          <%-- <option value=""></option> --%>>
+    
+                            <c:forEach items="${listatablas}" var="p" >
+                             <option value="${p}">${p}</option>
+                            </c:forEach>
+                
+                </select>
+    
+    <%--<select id="listatablas" onchange="llenarlista('uno',value)">
         <option value=""></option>
         <option value="tabla1">tabla1</option>
         <option value="tabla2">tabla2</option>
-    </select>
+</select> --%>
     
     <p id ="uno"></p>
     
@@ -36,7 +55,7 @@
                 
                             <select id="sel_pred" onchange="agregarElemento('table_pred',value)" >
         
-                            <option value=""></option>
+                           <option value=""></option> 
     
                             <c:forEach items="${listapred}" var="p" >
                                <option value="${p.predname}">${p.predname}</option>
@@ -46,9 +65,9 @@
                 
               
             </td>
-            <td><input type="button" value="+"/></td>
+            
             <td>
-                <table border="1" id="table_pred"></table>
+                <table border="1" id="table_pred" ></table>
             </td>
         </tr>
         <tr>
@@ -64,9 +83,9 @@
                 
                 </select>
             </td>
-            <td><input type="button" value="+"/></td>
+            
             <td>
-                <table border="1" id="table_comp"></table>
+                <table border="1" id="table_comp" ></table>
             </td>
         </tr>
         <tr>
@@ -74,7 +93,7 @@
             <td>
                   <select id="sel_mod" onchange="agregarElemento('table_mod',value)" >
         
-                            <option value=""></option>
+                       <option value=""></option> 
     
                             <c:forEach items="${listamod}" var="p" >
                                <option value="${p.modname}">${p.modname}</option>
@@ -82,7 +101,7 @@
                 
                 </select>
             </td>
-            <td><input type="button" value="+"/></td>
+           
             <td>
                 <table border="1" id="table_mod"></table>
             </td>
@@ -103,7 +122,7 @@
                 
               
             </td>
-            <td><input type="button" value="+"/></td>
+            
             <td>
                 <table border="1" id="table_conn"></table>
             </td>
@@ -121,7 +140,7 @@
                 
                 </select>
             </td>
-            <td><input type="button" value="+"/></td>
+        
             <td>
                 <table border="1" id="table_cuant"></table>
             </td>
