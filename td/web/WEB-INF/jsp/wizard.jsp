@@ -10,6 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <li><a href="index.htm" accesskey="5" title="">Volver</a></li>
   
   <body>
     <script language="Javascript">
@@ -40,8 +41,8 @@
           var cell1 = row.insertCell(0);
           cell1.innerHTML = elem;
           var cell2 = row.insertCell(1);
-          cell2.innerHTML = "<input type='button' value='Borrar'>";
-      }m.addObject("listaconn",w.buscarConector());
+          cell2.innerHTML = "<input type='button' value='X'>";
+      }
       
       
     </script>
@@ -60,7 +61,7 @@
             <th>Predicados</th>
             <td>
                 
-                            <select id="listapred" >
+                            <select id="sel_pred" onchange="agregarElemento('table_pred',value)" >
         
                             <option value=""></option>
     
@@ -80,10 +81,14 @@
         <tr>
             <th>Comparadores</th>
             <td>
-                <select id="sel_comp" onchange="agregarElemento('table_comp',value)">
-                    <option value=""> </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                <select id="sel_comp" onchange="agregarElemento('table_comp',value)" >
+        
+                            <option value=""></option>
+    
+                            <c:forEach items="${listacomp}" var="p" >
+                               <option value="${p.compname}">${p.compname}</option>
+                            </c:forEach>
+                
                 </select>
             </td>
             <td><input type="button" value="+"/></td>
@@ -94,8 +99,14 @@
         <tr>
             <th>Modificadores</th>
             <td>
-                <select id="sel_mod" onchange="agregarElemento('table_mod',value)">
-                    <option value=""> </option>
+                  <select id="sel_mod" onchange="agregarElemento('table_mod',value)" >
+        
+                            <option value=""></option>
+    
+                            <c:forEach items="${listamod}" var="p" >
+                               <option value="${p.modname}">${p.modname}</option>
+                            </c:forEach>
+                
                 </select>
             </td>
             <td><input type="button" value="+"/></td>
@@ -104,10 +115,37 @@
             </td>
         </tr>
         <tr>
+             <th>Conectores</th>
+            <td>
+                
+                            <select id="sel_conn" onchange="agregarElemento('table_conn',value)" >
+        
+                            <option value=""></option>
+    
+                            <c:forEach items="${listaconn}" var="p" >
+                               <option value="${p.connname}">${p.connname}</option>
+                            </c:forEach>
+                
+                </select>
+                
+              
+            </td>
+            <td><input type="button" value="+"/></td>
+            <td>
+                <table border="1" id="table_conn"></table>
+            </td>
+        </tr>
+        <tr>
             <th>Cuantificadores</th>
             <td>
-                <select id="sel_cuant" onchange="agregarElemento('table_cuant',value)">
-                    <option value=""> </option>
+                <select id="sel_cuan" onchange="agregarElemento('table_cuant',value)" >
+        
+                            <option value=""></option>
+    
+                            <c:forEach items="${listaquan}" var="p" >
+                               <option value="${p.quanname}">${p.quanname}</option>
+                            </c:forEach>
+                
                 </select>
             </td>
             <td><input type="button" value="+"/></td>
