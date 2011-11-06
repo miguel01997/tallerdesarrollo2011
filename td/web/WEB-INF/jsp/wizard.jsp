@@ -24,7 +24,7 @@
           
     
      
-      
+      <div id="v0" >   
 
       
     
@@ -46,6 +46,7 @@
         <option value="tabla1">tabla1</option>
         <option value="tabla2">tabla2</option>
 </select> --%>
+    
     
     <p id ="uno"></p>
     
@@ -148,12 +149,15 @@
             </td>
         </tr>
     </table>
-
+    
+    <button onclick="cambiarVentana('v0', 'marcoTextoOCL')">Siguiente</button>
+    
+</div>
     
     <br/>
     <hr/>
     
-    <div id="marcoTextoOCL" >
+    <div id="marcoTextoOCL" hidden="true">
         
         
         <div id ="listaPredicado" style="border-width: 2px; border-style: dotted; border-color: red;
