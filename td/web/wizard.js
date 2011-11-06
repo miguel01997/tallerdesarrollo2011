@@ -185,6 +185,11 @@
         table.removeChild(tr);
         //Saca el predicado de la lista de predicados
         var pos = tr.id;
-         //predicados.
+        
+        delete predicados[pos];
+        //predicados.slice(pos, pos);
+        actualizarTexto('textoOCL');
+        //alert(predicados.length);
+        predicados.length = predicados.length -1;
         
     }
