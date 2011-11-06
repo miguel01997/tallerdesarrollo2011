@@ -152,16 +152,29 @@
     <hr/>
     
     <div id="marcoTextoOCL" >
-    
-        <h2>OCL</h2>
         
-        <textarea rows="10" cols="60%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
+        
+        <div id ="listaPredicado" style="border-width: 2px; border-style: dotted; border-color: red;
+            position:relative;top:0px;right:30%;
+            float: right; height: 300px; width: 400px ;
+            ">
+            <table id="listaPredicados">
+               
+            </table>
+           
+       </div> 
+        
+        <h2>OCL</h2>
+        <!-- AREA DONDE SE COLOCA EL TEXTO OCL-->
+       <textarea rows="10" cols="60%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
         <br/>
 
-        <button id="agregarOCL" onclick="necesitaConector('v4_2_1','v4_1','v4_0')">Agregar elemento</button>
+       <button id="agregarOCL" onclick="necesitaConector('v4_2_1','v4_1','v4_0')">Agregar elemento</button>
         
-        
+       
             
+       
+       
        
     </div>
     
@@ -224,7 +237,7 @@
         
                      <br/>
                      <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')('v4_1')">Atras</button>
-                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS')">Agregar Predicado</button>
+                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','Tabla')">Agregar Predicado</button>
         
         
         </div>

@@ -34,7 +34,7 @@ public class cWizard extends AbstractController {
             ModelAndView m = new ModelAndView("wizard");
             
               // TODO code application logic 
-            String archivoPersistencia = "src/conf/persistence.xml";
+            String archivoPersistencia = "/var/www/jsp/tds/td/src/conf/persistence.xml";
             parsearArchivoPersistencia p =  new parsearArchivoPersistencia(archivoPersistencia);
            
             HashMap parseo=p.mapaClaseAtributos();

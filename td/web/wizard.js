@@ -60,29 +60,28 @@
       }
       
       //Agrega el texto texto a idTexto
-      function agregarTextoPred(idTexto,elemText){
-          
+      function agregarTextoPred(idTexto,elemText,tabla){
           var names = document.getElementsByName(elemText);
           var text = "";
-          
-          //busca conector
+          //busca conector si es necesario
           if(predicados.length>0){
               var c =  document.getElementById('conector');
               text = text+ " " +c.value
           }
-          
+          //se le concatena la tabla
           for(i = 0;i<names.length;i++){
+              if(i==0){
+                  text=text+" "+tabla+"."+names[i].value;
+                  continue;       
+              }
               text = text+ " " +names[i].value;
-              
           }
           var m =  document.getElementById(idTexto);
+          //agrega el texto a la lista de predicados visual
+          cargarPredicados("listaPredicados",text);
           
-          
-          
+          //Agrega el texo al cuadro
           agregarTexto(idTexto, text);
-          
-          
-          actualizarTexto(idTexto)
           
           
           
@@ -99,9 +98,7 @@
           
           v = document.getElementById(ventana2);
           v.hidden=false;
-          
       }
-      
       
       //activa ventana
       function activarVentana(ventana){
@@ -133,7 +130,7 @@
 
 
 /// VERIFICA SI NECESITA UN CONECTOR
-//Si no necesita conector envia a ventana1 sino envia a ventana2
+//Si no necesita conector envia a ventana1 si lo necesita envia a ventana2
      function necesitaConector(ventanaOrigen,ventana1,ventana2){
          if(predicados.length>0){
              cambiarVentana(ventanaOrigen, ventana2);
@@ -143,3 +140,43 @@
          }
          
      }
+
+
+
+//Lista los predicado creados en el cuadro derecho
+    function cargarPredicados(idtabla,texto){
+        var table = document.getElementById(idtabla);
+          var row = table.insertRow(-1);
+          row.id=predicados.length;
+          var cell1 = row.insertCell(0);
+          cell1.innerHTML =texto;
+          
+          var cell2 = row.insertCell(1);
+          cell2.innerHTML = "<input type='button' value='X'   onclick=eliminarCeldaPred(this) >  "; 
+         //table.innerHTML ="    <tr>       <td>pruebac</td> </tr>";
+        
+    }
+
+    //elimina una celda 
+    function eliminarCelda(t){
+        var td = t.parentNode;
+        var tr = td.parentNode;
+        var table = tr.parentNode;
+        table.removeChild(tr);
+        alert(tr.id);
+    }
+    
+    //elimina celda de lista de predicados
+    
+    function eliminarCeldaPred(t){
+        var td = t.parentNode;
+        var tr = td.parentNode;
+        var table = tr.parentNode;
+        table.removeChild(tr);
+        //Saca el predicado de la lista de predicados
+        var pos = tr.id;
+         //predicados.
+        
+        
+        
+    }
