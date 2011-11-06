@@ -5,6 +5,10 @@
 package wizard;
 
 import Dao.conexion;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,6 +32,20 @@ public class cWizard extends AbstractController {
             JdbcTemplate j = c.getJdbcTemplate();
             wizzardClase w = new wizzardClase();
             ModelAndView m = new ModelAndView("wizard");
+            
+              // TODO code application logic 
+            String archivoPersistencia = "src/conf/persistence.xml";
+            parsearArchivoPersistencia p =  new parsearArchivoPersistencia(archivoPersistencia);
+           
+            HashMap parseo=p.mapaClaseAtributos();
+            Set clavesSet=parseo.keySet();
+            List<String> claves = new ArrayList<String>(clavesSet);
+            
+            
+       
+            m.addObject("hashMap",parseo);
+            
+            m.addObject("listatablas",claves);
             
             m.addObject("listapred",w.buscarPredicado());
             
