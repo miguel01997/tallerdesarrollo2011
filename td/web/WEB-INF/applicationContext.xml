@@ -49,7 +49,7 @@
 
     <bean name="crearusuario" class="controlador.cCrearUsuario"></bean> 
     <bean name="modificarusuario" class="controlador.cModificarUsuario"></bean>
-    <bean name="wizard" class="wizard.cWizard"></bean>
+    
     
     
 
@@ -61,4 +61,7 @@
      <bean name="eliminarmodelo" class="controlador.cEliminarModelo"></bean>
      <bean name="eliminarusuario" class="controlador.cEliminarUsuario"></bean>
      <bean name="eliminaranuncio" class="controlador.cEliminarAnuncio"></bean>
+     
+     <!-- PARA EL WIZARD -->
+     <bean name="wizard" class="wizard.cWizard"></bean>
 </beans>
