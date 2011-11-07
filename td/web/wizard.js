@@ -5,40 +5,46 @@
 
 /////////////////////
   
-      var map = new Array();
-      var arr1 = ['atr1','atr2'];
-      var arr2 = ['atr3','atr4'];
-      map['tabla1'] = arr1;
-      map['tabla2'] = arr2;
       
   
   //TEXTO
       var textoInicio = "SELECT ( ";
       var textoFin = " )";
+      var atributosSelec=new Array();
+      var listaatributos=new Array();
   
   
-      function llenarlista(id,tabla){
+      function llenarlista(id,tabla){;
           var elem = document.getElementById(id);
           //alert(tabla);
           var newhtml = "";
+
+          /*
           var m = tabla.toString();
           
           var m2 = m.slice(1, m.length-1)
-         // alert(m2);
-          //tabla = tabla.pop();
-          //alert(tabla);
+         
           var aux = m2.split(',');
           
-          //alert(aux);
+          
           var arr = aux;
+          listaatributos=aux;
+          */
+         alert(tabla);
+           var arr = mapA[tabla];
           for (var i in arr){
-              //alert(arr[i]);
+
+
               var atr = arr[i];
-              newhtml += "<input type='checkbox' name=atr"+i+" value='"+atr+"'>"+atr+"<br>";
+              //newhtml += "<input type='checkbox' name=atr"+i+" value='"+atr+"'>"+atr+"<br>";
+              newhtml += "<input type='checkbox' name=checkbox value='"+atr+"'>"+atr+"<br>";
           }
           elem.innerHTML = newhtml;
           
       }
+      
+      
+      
       
       function agregarElemento(idtabla,elem){
           var table = document.getElementById(idtabla);
@@ -46,7 +52,7 @@
           var cell1 = row.insertCell(0);
           cell1.innerHTML = elem;
           var cell2 = row.insertCell(1);
-          cell2.innerHTML = "<input type='button' value='X'>";
+          cell2.innerHTML = "<input type='button' value='X'onclick=eliminarCelda(this)>";
       }
       
       
@@ -110,6 +116,23 @@
           v.hidden=false;
       }
       
+      
+      function atributosSeleccionado(ventana1,ventana2){
+         cambiarVentana(ventana1,ventana2);
+         var checkboxes = document.getElementById("form1").checkbox;
+         var cont = 0; 
+ 
+        for (var x=0; x < checkboxes.length; x++) {
+            if (checkboxes[x].checked) {
+                atributosSelec.push(checkboxes[x].value);
+              
+            }
+        }
+         
+         
+         alert(atributosSelec);
+      }
+      
       //activa ventana
       function activarVentana(ventana){
           v = document.getElementById(ventana);
@@ -133,6 +156,9 @@
           radio2 = document.getElementById(r2);
           if(radio1.checked){
               cambiarVentana('v4_1', 'v4_2_1');
+              var tabla = document.getElementById("listatablas").value;
+              alert("Tabla "+tabla);
+              cargarAtributos(tabla, "listaAtt");
           }
       }
 
@@ -192,4 +218,18 @@
         //alert(predicados.length);
         predicados.length = predicados.length -1;
         
+    }
+    
+    function cargarAtributos(tabla,idselect){
+        var select = document.getElementById(idselect);
+        var newhtml = "";
+        var arr = map[tabla];
+        for (var i in arr){
+
+
+              var atr = arr[i];
+              
+              newhtml += "<option value="+atr+">"+atr+"</option>";
+        }
+        select.innerHTML = newhtml;
     }

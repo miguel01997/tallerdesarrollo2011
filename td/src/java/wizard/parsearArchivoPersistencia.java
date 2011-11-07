@@ -41,6 +41,8 @@ public class parsearArchivoPersistencia {
     
     
     
+    
+    
     private void parsear(String archivo ) throws ParserConfigurationException, SAXException, IOException{
            // Creamos el builder basado en SAX  
    
@@ -81,7 +83,7 @@ public class parsearArchivoPersistencia {
     public ArrayList clases() throws ParserConfigurationException, SAXException, IOException{
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document doc = docBuilder.parse (new File(archivoPersistencia));
+        Document doc = docBuilder.parse (new File("/home/wendy/NetBeansProjects/Taller/td/src/conf/persistence.xml"));
         doc.getDocumentElement ().normalize ();
         
         //Busca los tag class
@@ -138,7 +140,7 @@ public class parsearArchivoPersistencia {
         if(clasesL == null)
             return null;
         HashMap<String,ArrayList<String>> mapa = new HashMap<String, ArrayList<String>>();
-        //busca los atributos
+        //busca los atribapaClaseAtributosutos
         for(String clase: clasesL){
            ArrayList<String> atributos = this.atributosDeClase(clase);
             ArrayList<String> put = mapa.put(clase, atributos);
@@ -146,6 +148,25 @@ public class parsearArchivoPersistencia {
         return mapa;
         
     }
+    
+    public HashMap<String,ArrayList<String>> ClaseAtributo() throws ParserConfigurationException, SAXException, IOException, ClassNotFoundException{
+    
+    HashMap<String,ArrayList<String>> mapa=new HashMap<String, ArrayList<String>>();
+    ArrayList<String>clasesL;
+    clasesL = clases();
+    
+    for(String clase:clasesL){
+       
+        ArrayList<String> atributos = buscarAtributos(clase);
+        mapa.put(clase, atributos);
+    }
+        
+        return mapa;
+        
+    }
+    
+    
+    
     
     
     /**Busca para una tabla las relaciones*/
@@ -168,6 +189,23 @@ public class parsearArchivoPersistencia {
         return relaciones;
     }
     
+      public ArrayList<String> buscarAtributos(String clase) throws ClassNotFoundException{
+         
+        ArrayList<String> relaciones = new ArrayList();
+         
+           //trae la lista de atributos de la tabla y su tipo
+        Class userClass = Class.forName(clase);
+        Field[] userFields = userClass.getDeclaredFields();
+        for(int i = 0; i< userFields.length;i++){
+            String nClase = userFields[i].getType().getSimpleName();
+            if(!nClase.equals("Collection")){
+                relaciones.add(userFields[i].getName());
+            }
+           
+        }
+        
+        return relaciones;
+    }
     
     
     
