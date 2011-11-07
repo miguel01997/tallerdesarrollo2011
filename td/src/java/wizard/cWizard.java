@@ -40,10 +40,13 @@ public class cWizard extends AbstractController {
             HashMap<String,ArrayList<String>> parseo=p.mapaClaseAtributos();
             //parseo.get(p).iterator()
             
+            HashMap claseAtributos=p.ClaseAtributo();
             Set clavesSet=parseo.keySet();
             List<String> claves = new ArrayList<String>(clavesSet);
             
+            m.addObject("hashMapAtri",claseAtributos);
             
+            m.addObject("persistence",p);
        
             m.addObject("hashMap",parseo);
             
