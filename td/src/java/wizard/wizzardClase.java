@@ -21,7 +21,7 @@ public class wizzardClase {
         
         return list;
         
-        
+       
     }
     
     public List buscarModificador(){
