@@ -43,7 +43,7 @@ import org.springframework.jdbc.core.RowMapper;
     @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
     @NamedQuery(name = "Usuario.findByTipo", query = "SELECT u FROM Usuario u WHERE u.tipo = :tipo")})
     public class Usuario implements Serializable, RowMapper {
-    private static final long serialVersionUID = 1L;
+  //  private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(generator="usuario_codusuario_seq",strategy=GenerationType.SEQUENCE)
     @Basic(optional = false)

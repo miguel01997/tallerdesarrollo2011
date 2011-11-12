@@ -55,7 +55,7 @@
       <div id="v0" >   
 
       <select id="listatablas" onchange="llenarlista('uno', value)" >
-    
+                            <option value=""></option>
                             <c:forEach items="${hashMap}" var="p" >
                                  
                              <option value="${p.key}">${p.key}</option>
@@ -123,7 +123,8 @@
         <h2>CONECTOR</h2>
           
           <select id="conector"  >
-                <option value=""></option>
+                <option >AND</option>
+                <option >OR</option>
     
                             <c:forEach items="${listaconn}" var="p" >
                                <option value="${p.connname}">${p.connname}</option>
@@ -160,16 +161,17 @@
                 <td>
                 <!-- Atributos -->
                 <select id="listaAtt" name="predS" >
-                           
+                         
                             
                  </select>
                 </td>
                 <td>
                 <!-- Comparadores -->
                 <select id="listaAtt" name="predS" >
-                  <option value=""></option>
+             
     
                             <c:forEach items="${listacomp}" var="p" >
+                      
                                <option value="${p.compname}">${p.compname}</option>
                             </c:forEach>
                  </select>
@@ -177,9 +179,10 @@
                 <td>
                 <!-- Modificador -->
                  <select id="listaAtt" name="predS" >
-                 <option value=""></option> 
-    
+                
+                     <option value=" "></option>
                             <c:forEach items="${listamod}" var="p" >
+                                
                                <option value="${p.modname}">${p.modname}</option>
                             </c:forEach>
                  </select>
@@ -187,9 +190,10 @@
                 <td>
                 <!-- PREDICADOS -->
                 <select id="listaAtt" name="predS" >
-              <option value=""></option> 
-    
+              
+                                   
                             <c:forEach items="${listapred}" var="p" >
+                               
                                <option value="${p.predname}">${p.predname}</option>
                             </c:forEach>
                  </select>
@@ -200,7 +204,7 @@
         
                      <br/>
                      <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')('v4_1')">Atras</button>
-                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','Tabla')">Agregar Predicado</button>
+                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','listatablas')">Agregar Predicado</button>
         
         </div>
   </body>

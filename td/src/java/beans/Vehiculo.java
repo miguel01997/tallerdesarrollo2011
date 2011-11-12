@@ -43,7 +43,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class Vehiculo implements Serializable {
     @OneToOne(mappedBy = "codvehiculo")
     private Anuncio anuncio;
-    private static final long serialVersionUID = 1L;
+  //  private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "placa")

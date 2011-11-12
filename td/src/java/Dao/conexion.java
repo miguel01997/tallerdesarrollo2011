@@ -4,9 +4,14 @@
  */
 package Dao;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import oracle.toplink.essentials.internal.ejb.cmp3.EntityManagerImpl;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -53,6 +58,12 @@ public class conexion {
         
           emf = Persistence.createEntityManagerFactory("tallerDesarrolloPU");
           em = emf.createEntityManager();
+          
+          
+         
+          
+        
+          
           
     }
     

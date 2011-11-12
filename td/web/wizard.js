@@ -16,7 +16,7 @@
   
       function llenarlista(id,tabla){;
           var elem = document.getElementById(id);
-          //alert(tabla);
+       
           var newhtml = "";
 
           /*
@@ -30,7 +30,7 @@
           var arr = aux;
           listaatributos=aux;
           */
-         alert(tabla);
+         
            var arr = mapA[tabla];
           for (var i in arr){
 
@@ -76,9 +76,17 @@
       }
       
       //Agrega el texto texto a idTexto
-      function agregarTextoPred(idTexto,elemText,tabla){
+      function agregarTextoPred(idTexto,elemText,idtabla){
           var names = document.getElementsByName(elemText);
           var text = "";
+          var tabla = document.getElementById("listatablas").value;
+          var tablaaux = tabla.split('.');
+          
+          var dummyA=tablaaux[1];
+          
+          var dummy= dummyA.charAt(0);
+          
+          
           //busca conector si es necesario
           if(predicados.length>0){
               var c =  document.getElementById('conector');
@@ -87,7 +95,7 @@
           //se le concatena la tabla
           for(i = 0;i<names.length;i++){
               if(i==0){
-                  text=text+" "+tabla+"."+names[i].value;
+                  text=text+" "+dummy+"."+names[i].value;
                   continue;       
               }
               text = text+ " " +names[i].value;
@@ -118,7 +126,7 @@
       
       
       function atributosSeleccionado(ventana1,ventana2){
-         cambiarVentana(ventana1,ventana2);
+         
          var checkboxes = document.getElementById("form1").checkbox;
          var cont = 0; 
  
@@ -126,11 +134,22 @@
             if (checkboxes[x].checked) {
                 atributosSelec.push(checkboxes[x].value);
               
+            }}
+            
+            if(atributosSelec.length<1){
+                alert("Debe seleccionar almenos un campo a proyectar");
+                
+          
             }
-        }
+            else{
+                cambiarVentana(ventana1,ventana2);
+                
+            }
+        
          
          
-         alert(atributosSelec);
+        
+        
       }
       
       //activa ventana
@@ -157,7 +176,7 @@
           if(radio1.checked){
               cambiarVentana('v4_1', 'v4_2_1');
               var tabla = document.getElementById("listatablas").value;
-              alert("Tabla "+tabla);
+             
               cargarAtributos(tabla, "listaAtt");
           }
       }
@@ -215,7 +234,7 @@
         delete predicados[pos];
         //predicados.slice(pos, pos);
         actualizarTexto('textoOCL');
-        //alert(predicados.length);
+       
         predicados.length = predicados.length -1;
         
     }
@@ -224,6 +243,8 @@
         var select = document.getElementById(idselect);
         var newhtml = "";
         var arr = map[tabla];
+        //newhtml +="<option value=""></option>";
+        
         for (var i in arr){
 
 

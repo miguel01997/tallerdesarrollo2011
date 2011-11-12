@@ -46,7 +46,7 @@ import org.springframework.validation.Validator;
     @NamedQuery(name = "Modelo.findByAnio", query = "SELECT m FROM Modelo m WHERE m.anio = :anio")})
     
     public class Modelo implements Serializable, RowMapper,Validator {
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(generator="modelo_codmodelo_seq",strategy=GenerationType.SEQUENCE)
     @Basic(optional = false)

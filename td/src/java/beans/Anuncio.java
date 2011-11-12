@@ -46,7 +46,7 @@ public class Anuncio implements Serializable{
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(generator="anuncio_codanuncio_seq",strategy=GenerationType.SEQUENCE)
     @Basic(optional = false)
