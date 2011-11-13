@@ -5,7 +5,10 @@
 package wizard;
 
 import Dao.conexion;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -51,8 +54,16 @@ public class wizzardClase {
     public List buscarCuantificador(){
        conexion c = new conexion();
        JdbcTemplate j = c.getJdbcTemplate();
-        List  list= j.queryForList("select quanname from pg_catalog.pg_fuzzyquan");
-        return list;
+        List<Map<String, Object>>  list= j.queryForList("select quanname from pg_catalog.pg_fuzzyquan");
+        List<String> ret = new ArrayList<String>();
+                
+        for(Map<String,Object> s:list){
+            Iterator<Object> i = s.values(). iterator();
+            while(i.hasNext()){
+               ret.add(i.next().toString());
+            }
+        }
+        return ret;
         
     } 
     

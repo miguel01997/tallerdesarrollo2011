@@ -83,7 +83,8 @@ public class parsearArchivoPersistencia {
     public ArrayList clases() throws ParserConfigurationException, SAXException, IOException{
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document doc = docBuilder.parse (new File("/home/wendy/NetBeansProjects/Taller/td/src/conf/persistence.xml"));
+        //Document doc = docBuilder.parse (new File("/home/wendy/NetBeansProjects/Taller/td/src/conf/persistence.xml"));
+        Document doc = docBuilder.parse (new File("/var/www/jsp/tds/td/src/conf/persistence.xml"));
         doc.getDocumentElement ().normalize ();
         
         //Busca los tag class
@@ -179,9 +180,10 @@ public class parsearArchivoPersistencia {
         Class userClass = Class.forName(clase);
         Field[] userFields = userClass.getDeclaredFields();
         for(int i = 0; i< userFields.length;i++){
+            //System.out.println(">>>>>>"+userFields[i]);
             String nClase = userFields[i].getType().getSimpleName();
             if(nClase.equals("Collection")){
-                relaciones.add(userFields[i].getName());
+                relaciones.add(clase + " "+userFields[i].getName());
             }
            
         }
@@ -207,6 +209,23 @@ public class parsearArchivoPersistencia {
         return relaciones;
     }
     
+      
+    public HashMap<String,ArrayList<String>> mapaClaseRelacion()
+            throws ParserConfigurationException, SAXException, IOException, ClassNotFoundException{
+        //Lista de clases
+        ArrayList<String>clasesL;
+        clasesL = clases();
+        if(clasesL == null)
+            return null;
+        HashMap<String,ArrayList<String>> mapa = new HashMap<String, ArrayList<String>>();
+        //busca los atribapaClaseAtributosutos
+        for(String clase: clasesL){
+           ArrayList<String> atributos = this.buscarRelaciones(clase);
+            ArrayList<String> put = mapa.put(clase, atributos);
+        }
+        return mapa;
+    
+    } 
     
     
     

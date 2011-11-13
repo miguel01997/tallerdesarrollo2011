@@ -61,6 +61,8 @@ public class cWizard extends AbstractController {
             m.addObject("listacomp",w.buscarComparador());
             
             m.addObject("listaquan",w.buscarCuantificador());
+            
+            m.addObject("mapaRelaciones",p.mapaClaseRelacion());
              //envia el mensaje de que fue eliminado
           //   response.sendRedirect(mensaje);
            return m;
