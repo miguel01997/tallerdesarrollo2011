@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+import sun.net.www.content.audio.wav;
 
 /**
  *
@@ -59,5 +60,7 @@ public class prueba {
         
         
         
+        wizzardClase a = new wizzardClase();
+        a.buscarCuantificador();
     }
 }

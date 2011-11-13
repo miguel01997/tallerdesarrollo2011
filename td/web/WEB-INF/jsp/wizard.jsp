@@ -4,6 +4,7 @@
     Author     : wendy
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -22,12 +23,8 @@
              var subarr = new Array();
              <c:forEach items="${p.value}" var="atr" >
                 subarr.push("${atr}");                 
-                
-                             
-
              </c:forEach> 
              map["${p.key}"] = subarr;
-             
         </c:forEach>
         
         var mapA = new Array();
@@ -44,6 +41,21 @@
              mapA["${p.key}"] = subarr;
              
         </c:forEach>
+         
+         //RELACIONES
+         var mapR = new Array();
+        <c:forEach items="${mapaRelaciones}" var="p" >
+             var subarr = new Array();
+             <c:forEach items="${p.value}" var="atr" >
+                subarr.push("${atr}");                 
+             </c:forEach> 
+             mapR["${p.key}"] = subarr;
+             
+        </c:forEach>    
+
+
+
+
     </script>
 </head>
     
@@ -57,10 +69,7 @@
       <select id="listatablas" onchange="llenarlista('uno', value)" >
                             <option value=""></option>
                             <c:forEach items="${hashMap}" var="p" >
-                                 
                              <option value="${p.key}">${p.key}</option>
-                             
-
                             </c:forEach>
                 
                 </select>
@@ -143,7 +152,7 @@
         <input id ="cuanti" type=radio name="selec" value="Cuantificador">Cuantificador</input>
                     <br/>
                     <button id="Atrasv4_1" onclick="ocultarVentana('v4_1')">Atras</button>
-                    <button id="sig_v4_2_1" onclick="verificarRadioBotton('pred','cuanti')">Siguiente</button>
+                    <button id="sig_v4_2_1" onclick="verificarRadioBotton('pred','cuanti','v4_1','v4_2_1','v4_2_2')">Siguiente</button>
     </div>
     
     <!-- PREDICADO-->
@@ -178,18 +187,17 @@
                 </td>
                 <td>
                 <!-- Comparadores -->
-                <select id="listaAtt" name="predS" >
+                <select id="listaAttC" name="predS" >
              
     
                             <c:forEach items="${listacomp}" var="p" >
-                      
                                <option value="${p.compname}">${p.compname}</option>
                             </c:forEach>
                  </select>
                 </td>
                 <td>
                 <!-- Modificador -->
-                 <select id="listaAtt" name="predS" >
+                 <select id="listaAttM" name="predS" >
                 
                      <option value=" "></option>
                             <c:forEach items="${listamod}" var="p" >
@@ -200,7 +208,7 @@
                 </td>
                 <td>
                 <!-- PREDICADOS -->
-                <select id="listaAtt" name="predS" >
+                <select id="listaAttP" name="predS" >
               
                                    
                             <c:forEach items="${listapred}" var="p" >
@@ -227,9 +235,76 @@
                 <br/>
         
                      <br/>
-                     <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')('v4_1')">Atras</button>
+                     <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')">Atras</button>
                      <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','listatablas')">Agregar Predicado</button>
                      
         </div>
+    
+    
+    <!-- CUANTIFICADOR-->
+    <div id="v4_2_2" >
+     <hr/>
+    <h2>CUANTIFICADOR</h2>    
+        
+    
+    
+    <table id="tablaCuantificador">
+        <tr>
+            <th>Relaciones</th>
+            <th>Cuantificadores</th>
+            <th>Variable del cuantificador</th>
+            <th>Expresión</th>
+        </tr>
+        <tr>
+            <td><!-- Relaciones -->
+                <select id="listaRelCuan" name="lCuan" onchange ="cambiaCuanti('textCuanti','lCuan','listatablas')" >
+                    
+               </select>
+            </td>
+            <td>
+                <select id="listaCuan" name="lCuan" onchange ="cambiaCuanti('textCuanti','lCuan','listatablas')" >
+                      <c:forEach items="${listaquan}" var="p" >
+                               <option value="${p}">${p}</option>
+                      </c:forEach>
+                     
+               </select>
+              
+            </td>
+            <td><!-- Cuantificadores-->
+                <input id="varCuantificador" name="lCuan" type="text" onchange ="cambiaCuanti('textCuanti','lCuan','listatablas')" onkeyup="variableNoNumerica(value,'vCuantificador')"></input>
+            </td>
+            <td><!-- Texto Cuantificadores-->
+                <textarea id="textCuanti" type="text" disabled="true" cols="60%"> </textarea>
+            </td>
+        </tr> 
+    </table>
+        
+   
+    <div id="vCuantificador" style="color:#FF0000;" hidden="true" >Variable del cuantificador no válida</div>
+     
+    <!-- TEXTO QUE SE COPIARA A LA EXPRESION DENTRO DEL CUANTIFICADOR-->
+    <input type="text" id="texCuanti0" name="lCuan" onchange="cambiaCuanti('textCuanti','lCuan','listatablas')"></input>
+    <!-- NOMBRE DE LA CLASE DEL ATRIBUTO DEL CUANTIFICADOR -->
+    <input type="text" id="classCuan0" ></input>
+    
+     <button id="atrasv4_2_2" onclick="cambiarVentana('v4_2_2','v4_1')">Atras</button>
+     <button id="agreExpreCuan" onclick="crearVentanasRec('recuCuanti')" >Agregar Expresion al cuantificador</button>
+    <button id="agreCuan" >Agregar Cuantificador</button>
+    </div>
+    
+    
+    <!-- AQUI SE AGREGARAN RECURSIVAMENTE LOS CUANTIFICADORES -->
+    <div id="recuCuanti" >
+        
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    <button onclick="agregarDivEpresiones('recuCuanti')">prueba</button>
+    
   </body>
 </html>
