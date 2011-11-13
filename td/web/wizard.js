@@ -80,7 +80,7 @@
       }
       
       //Agrega el texto texto a idTexto
-      function agregarTextoPred(idTexto,elemText,idtabla){
+      function agregarTextoPred(idTexto,elemText,idtabla){alert('agregarTextoPred');
           var names = document.getElementsByName(elemText);
           var text = "";
           var tabla = document.getElementById("listatablas").value;
@@ -101,7 +101,7 @@
           //busca conector si es necesario
           if(predicados.length>0){
               var c =  document.getElementById('conector');
-              text = text+ " " +c.value
+              text = ""+c.value;
           }
           
            if(parabre.checked){
@@ -272,6 +272,16 @@
         var td = t.parentNode;
         var tr = td.parentNode;
         var table = tr.parentNode;
+        if (tr.rowIndex == 0 && table.rows.length>1){
+            //Quitar el conector de la siguiente fila
+            var rows = table.rows;
+            var nextrow = rows[1];
+            var cell = nextrow.cells[0];
+            var oldhtml = cell.innerHTML;
+            var newhtml = oldhtml.substr(oldhtml.indexOf(" "));
+            cell.innerHTML = newhtml;
+        }
+        
         table.removeChild(tr);
         //Saca el predicado de la lista de predicados
         var pos = tr.id;
@@ -513,7 +523,7 @@
         var r2 = document.getElementById(nRad+1);
        
         // var accion = "verificarRadioBotton("+r1+","+r2+"', ndiv,ndiv,"ndiv)"
-        crearBoton(dv, "Siguiente", "verificarRadioBotton("+r1+","+r2+"', v1, v2, v3)");
+        crearBoton(dv, "Siguiente", "verificarRadioBotton("+r1+","+r2+", v1, v2, v3)");
         auxx.appendChild(dv);
        // alert(ndiv);
        // AQUI
@@ -714,9 +724,11 @@
         
     }
 
-
-   function agregarTexto(elem,text){
+/*
+   function agregarTexto(elem,text){alert('Entra');
        var t = document.getElementById(elem);
        t.value = text;
    }
-   
+   */
+  
+  
