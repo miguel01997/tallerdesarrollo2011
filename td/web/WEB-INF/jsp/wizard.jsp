@@ -150,14 +150,25 @@
         <div   id="v4_2_1" hidden="true" >
         <hr/>
         <h2>Predicado</h2>
+        
+        <form id="form2">
         <table>
             <tr>
+                <th>(</th>
                 <th>Atributos</th>
                 <th>Comparadores</th>
                 <th>Modificadores</th>
                 <th>Predicados</th>
+                <th>)</th>
             </tr>
             <tr>
+            
+                <td>
+                    
+                    <input type='checkbox' id="abrepred" name="abrepred" />
+                    
+                </td>
+                
                 <td>
                 <!-- Atributos -->
                 <select id="listaAtt" name="predS" >
@@ -198,14 +209,27 @@
                             </c:forEach>
                  </select>
                 </td>
+                <td>
+                    
+                    <input type='checkbox' id="cierrapred" name="cierrapred" />
+                    
+                </td>
+                
             </tr>
+            
+            
+                
+                
+          
         </table>
+        </form>
+
                 <br/>
         
                      <br/>
                      <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')('v4_1')">Atras</button>
                      <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','listatablas')">Agregar Predicado</button>
-        
+                     
         </div>
   </body>
 </html>

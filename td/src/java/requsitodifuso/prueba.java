@@ -33,7 +33,7 @@ public class prueba {
                     
                // case 1:
                 
-                    String c2 = "select(v | v.tienevm.anio is nuevo)";
+                    String c2 = "select(v | not v.tienevm.anio is nuevo)";
                     RequisitoDifuso r2 = new RequisitoDifuso("FR2",new String[] { "nuevo" }, new String[] { }, 0.75, new String[] { "placa" }, "vehiculo", c2, mapa);
                     System.out.println("\n" + r2.condicion);
                     System.out.println("\n" + r2.traducir()); 
