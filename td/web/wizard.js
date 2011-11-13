@@ -86,12 +86,26 @@
           
           var dummy= dummyA.charAt(0);
           
+          var parabre=document.getElementById("form2").abrepred;
+          var parcierra=document.getElementById("form2").cierrapred;
+        
+         
+          
+           
+          
           
           //busca conector si es necesario
           if(predicados.length>0){
               var c =  document.getElementById('conector');
               text = text+ " " +c.value
           }
+          
+           if(parabre.checked){
+              
+              text= text + " (";
+          }
+          
+          
           //se le concatena la tabla
           for(i = 0;i<names.length;i++){
               if(i==0){
@@ -100,6 +114,14 @@
               }
               text = text+ " " +names[i].value;
           }
+          
+           if(parcierra.checked){
+              
+              text=text+")";
+          }
+          
+            
+          
           var m =  document.getElementById(idTexto);
           //agrega el texto a la lista de predicados visual
           cargarPredicados("listaPredicados",text);
