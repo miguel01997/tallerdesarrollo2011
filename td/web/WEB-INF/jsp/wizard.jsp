@@ -252,15 +252,20 @@
     <h2>CUANTIFICADOR</h2>    
         
     
-    
+    <form id="form3">
     <table id="tablaCuantificador">
         <tr>
+            <th>(</th>
             <th>Relaciones</th>
             <th>Cuantificadores</th>
             <th>Variable del cuantificador</th>
             <th>Expresión</th>
+           
+        
+            <th>)</th>
         </tr>
         <tr>
+            <td>  <input type='checkbox' id="abrepredi" name="abrepredi" /> </td> 
             <td><!-- Relaciones -->
                 <select id="listaRelCuan" name="lCuan0" onchange ="cambiaCuanti('textCuanti0','lCuan0')" >
                     
@@ -275,14 +280,22 @@
                </select>
               
             </td>
+            
+         
+           
             <td><!-- Cuantificadores-->
                 <input id="varCuantificador0"  name="lCuan0" type="text" onchange ="cambiaCuanti('textCuanti0','lCuan0')" onkeyup="variableNoNumerica(value,'vCuantificador')"></input>
             </td>
             <td><!-- Texto Cuantificadores-->
                 <textarea id="textCuanti0" type="text" disabled="true" cols="60%"> </textarea>
             </td>
+            
+              <td>  <input type='checkbox' id="predicierra" name="predicierra" /> </td> 
         </tr> 
+        
+           
     </table>
+           </form>
         
    
     <div hidden="true" id="vCuantificador" style="color:#FF0000;" >Variable del cuantificador no válida</div>
