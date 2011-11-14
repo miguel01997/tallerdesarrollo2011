@@ -632,6 +632,7 @@ function auxbDummy(){
         //crea El titulo
         crearTitulo(dv, "Conector");
         
+        
         var arrC = mapConec;
         //arrC.push("AND", "OR");
         auxx.appendChild(dv);
