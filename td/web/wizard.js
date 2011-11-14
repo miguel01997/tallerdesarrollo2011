@@ -12,14 +12,15 @@
       var textoFin = " )";
       var atributosSelec=new Array();
       var listaatributos=new Array();
-      var listaCuantificadores = new Array();
+      //Lista de cuantificadores
+      var listaCuantificadores = new Array();//<cuantificadores>
+      //Lista donde para cada cuantificador se guardan sus expresiones <<cuanti><arreExpre>>
+      var listaExpreCuanti = new Array();
       var contExpCu = 0;
   
   
       function llenarlista(id,tabla){
-          
           var elem = document.getElementById(id);
-       
           var newhtml = "";
 
           /*
@@ -71,7 +72,7 @@
       }
       
       
-      //Agrega el texto texto a idTexto
+      //Agrega el texto texto a idTexto usada para OCL no tocar
       function agregarTexto(idTexto,texto){
           m =  document.getElementById(idTexto);
           predicados.push(texto);
@@ -80,7 +81,7 @@
       }
       
       //Agrega el texto texto a idTexto
-      function agregarTextoPred(idTexto,elemText,idtabla){alert('agregarTextoPred');
+      function agregarTextoPred(idTexto,elemText,idtabla){//alert('agregarTextoPred');
           var names = document.getElementsByName(elemText);
           var text = "";
           var tabla = document.getElementById("listatablas").value;
@@ -90,14 +91,11 @@
           
           var dummy= dummyA.charAt(0);
           
+          //Agrega la variable dummy para ser usada internamente
+          document.getElementById("varDummy0").value = dummy;
+          
           var parabre=document.getElementById("form2").abrepred;
           var parcierra=document.getElementById("form2").cierrapred;
-        
-         
-          
-           
-          
-          
           //busca conector si es necesario
           if(predicados.length>0){
               var c =  document.getElementById('conector');
@@ -219,7 +217,12 @@
                     _option.appendChild(_text);
                     rList.appendChild(_option); 
                     _option.value = listaR[x];
-               } 
+                    
+               }//DUMMY
+               //busca la variable dummy para el cuantificador
+               //var dum = crearVarDummy();
+               //var e = document.getElementById("varDummy0");
+               //e.value= dum;
                cambiarVentana(v1, v3);
                
               
@@ -338,13 +341,13 @@
     }
     
     /*Agrega el texto al cuadro de texto de cuantificador*/
-    function cambiaCuanti(nCuanti,nombreLista,variable){
+    function cambiaCuanti(nCuanti,nombreLista){
         //buscar la variable dummy externa
-          var t = document.getElementById(variable).value;
-          var tablaa = t.split('.');
-          var duA=tablaa[1];
-          var dummy= duA.charAt(0);
-        var cuan = document.getElementsByName(nombreLista);
+          //var t = document.getElementById(variable).value;
+          //var tablaa = t.split('.');
+         // var duA=tablaa[1];
+          //var dummy= duA.charAt(0);
+         var cuan = document.getElementsByName(nombreLista);
          var relacion = cuan[0].value.split(" ")[1];
          //guarda la tabla axilioar
          var tAux = document.getElementById("classCuan0");
@@ -352,14 +355,44 @@
          
          var cuanti = cuan[1].value;
          var variabled = cuan[2].value;
-         var expre =  variabled+"."+cuan[3].value;
+         //busca el cuantificador
+         var con = listaCuantificadores.length;
+         var cuant = listaCuantificadores[con-1];
+         //arma la expresion
+        var expre =  armarExpCuan(cuant);
+        
+         var dummy = cuan[4].value;
          if(tieneNumero(variabled)){
             variabled = "";
         }
         textoCuan=dummy+"."+relacion+"->"+cuanti+"("+variabled+"| "+expre+")";
         var textoC =document.getElementById(nCuanti);
         textoC.value= textoCuan;
+        return textoCuan;
+        //se agrega a la lista de predicados
+        
     }
+    
+    
+   /*Funcion auxiliar */ 
+   
+   function ActualizarExpre(nCuanti,nombreLista){
+       //agrega la expresion a la lista
+       var con = listaCuantificadores.length;
+       var cuant = listaCuantificadores[con-1];
+       
+       //arma la expresion
+       var cuan = document.getElementsByName(nombreLista);
+       var variabled = cuan[2].value;
+       var expre =  variabled+"."+cuan[3].value;
+       //alert(cuant);
+       agregarExpreCuanti(cuant, expre);
+       cambiaCuanti(nCuanti, nombreLista);
+       //alert();
+       //var expresiones =  armarExpCuan(cuant);
+       
+       
+   }
     
     
 /*Agrega la lista lista al div en forma de dropdownlist
@@ -378,6 +411,7 @@
         _option.value = lista[x];} 
         container.appendChild(_select);
         _select.setAttribute('name', nombre); 
+        _select.setAttribute('id', nombre); 
     }
 
 
@@ -388,7 +422,8 @@
        //elimina el nombre de la clase
        
        for(var i =0 ;i<arrList.length;i++){
-          alert(arrList[i].split(" ")[1]);
+         //
+         //  alert(arrList[i].split(" ")[1]);
        }
        AddDopListDiv(div, arrList);
     }
@@ -491,6 +526,9 @@
     
     
     function crearVentanasRec(div){
+       // alert();
+       
+        ventanaConecRecur(div);
         agregarDivEpresiones(div);
         ventanaPredicadoRec(div);
         
@@ -500,7 +538,18 @@
     function agregarDivEpresiones(div){
         var ndiv = "divCuan"+contExpCu++;
         var dv = document.createElement("div");
-        dv.setAttribute('id',ndiv);       //give id to it
+        dv.setAttribute('id',ndiv);  
+        
+        var cc = listaCuantificadores.length;
+        var cu = listaCuantificadores[cc-1];
+        var ccu = listaExpreCuanti[cu]
+        if(ccu == undefined || ccu.length==0){
+            
+        }else{
+             dv.setAttribute('hidden',"ẗrue");
+             
+        }
+        
         //Donde se colocara la plantilla
         var auxx = document.getElementById(div);
         //crea raya de separacion
@@ -516,26 +565,97 @@
         //salto
         crearSaltoLinea(dv);
         crearBoton(dv, "Atras","atrasRec('"+ndiv+"')");
-       //crearBoton(dv, "Atras","p('"+45+"')");
        
-       //busca los raio buton
-        var r1= document.getElementById(nRad+0);
-        var r2 = document.getElementById(nRad+1);
+        var radr= "rad"+ndiv+"0";
+        var redr ="rad"+ndiv+"1";
        
-        // var accion = "verificarRadioBotton("+r1+","+r2+"', ndiv,ndiv,"ndiv)"
-        crearBoton(dv, "Siguiente", "verificarRadioBotton("+r1+","+r2+", v1, v2, v3)");
+       //ventanas
+       var v1= ndiv;
+       //alert(ndiv);
+       var v2= "PdivCuan"+contExpCu;
+        crearBoton(dv, "Siguiente", "verRadioButtonRecursivo('"+radr+"','"+redr+"', '"+v1+"','"+v2+"',"+5+")");
         auxx.appendChild(dv);
-       // alert(ndiv);
+         
+       //crearBoton(dv, "Siguienteee", "p('"+radr+"')");
+       //alert();
        // AQUI
         //listaCuantificadores.push(ndiv);
     }
     
+   
+    function verRadioButtonRecursivo(r1,r2,v1,v2,v3){
+        var rad1 = document.getElementById(r1);
+        var rad2 = document.getElementById(r2);
+        //var tabla = document.getElementById("listatablas").value;
+          if(rad1.checked){
+              cambiarVentana(v1, v2);
+            //  alert("Tabla "+tabla);
+          }//Cuantificador
+        
+    }
+    
+    
+    
+    /*Ventana conector recursivo*/
+    function ventanaConecRecur(div){
+        var ndiv = "ConecdivCuan"+contExpCu;
+        //alert(ndiv);
+        var dv = document.createElement("div");
+        dv.setAttribute('id',ndiv);       //give id to it
+        var cc = listaCuantificadores.length;
+        var cu = listaCuantificadores[cc-1];
+        var ccu = listaExpreCuanti[cu]
+        if(ccu == undefined || ccu.length==0){
+            dv.setAttribute('hidden', true);
+        }
+        //
+        //Donde se colocara la plantilla
+        var auxx = document.getElementById(div);
+        //crea raya de separacion
+        crearRaya(dv);
+        //crea El titulo
+        crearTitulo(dv, "Conector");
+        
+        var arrC = mapConec;
+        //arrC.push("AND", "OR");
+        auxx.appendChild(dv);
+        AddDopListDiv(dv.getAttribute("id"), arrC, "listCon"+contExpCu);
+        
+        crearSaltoLinea(dv);
+        var v1 = ndiv
+        var v2 = "divCuan"+contExpCu;
+       //crea los botones
+       crearBoton(dv, "Atras",  "cambiarVentana('"+v1+"', '')");
+       crearBoton(dv, "Siguiente","cambiarVentana('"+v1+"', '"+v2+"')");
+       
+        
+    }
+    
+    
+   function agregarConector(){
+        var cc = listaCuantificadores.length;
+        var cu = listaCuantificadores[cc-1];
+        var ccu = listaExpreCuanti[cu]
+        if(ccu == undefined || ccu.length==0){
+            
+        }else{
+             var tor = document.getElementById("listCon"+(contExpCu-1));
+             agregarExpreCuanti(cu, tor.value);
+        }
+        
+    }
+    
+    
     
     
     function ventanaPredicadoRec(div,tabla){
+        
         var ndiv = "PdivCuan"+contExpCu;
+        //alert(ndiv);
         var dv = document.createElement("div");
         dv.setAttribute('id',ndiv);       //give id to it
+        //busca el tamaño de expresiones del ultimo cuantificador
+        dv.setAttribute('hidden',"ẗrue");
         //Donde se colocara la plantilla
         var auxx = document.getElementById(div);
         //crea raya de separacion
@@ -586,17 +706,25 @@
         
         var name = "Sel"+ndiv;
          //var _text5 = document.createTextNode("Predicados");
+         //LISTA DE ATRIBUTOS
         var s1 = document.createElement("select");
         s1.setAttribute("id", "Sel"+ndiv+1);
         s1.setAttribute("name", name);
-        td.appendChild(s1);   
+        td.appendChild(s1);  
+        
+        //se llena la lista
+        
         //comparador
          //s1 = document.createElement("select");
+          var contado = listaCuantificadores.length;
+          
           var lc = document.getElementById("listaAttC").cloneNode(true);
           lc.setAttribute("id", "Sel"+ndiv+2);
           lc.setAttribute("name", name);
           td2.appendChild(lc);   
         //busca las listas
+        //
+        //
         //Modificadores
         var lm =document.getElementById("listaAttM").cloneNode(true);
         lm.setAttribute("id", "Sel"+ndiv+3);
@@ -614,28 +742,33 @@
         crearSaltoLinea(dv);
         //crea botones
         //busca el area donde se escribira la expresion
-        var ta = listaCuantificadores[contExpCu-1];
+        
+        
+        var ta = listaCuantificadores[contado-1];
         //alert(ta);
-        crearBoton(dv, "Atras", "");
+        crearBoton(dv, "Atras", "cambiarVentana('"+ndiv+"','"+"divCuan"+(contExpCu-1)+"')");
         crearBoton(dv, "Agregar Predicado", "armarPredicado('"+name+"','"+ta+"')");
         
         auxx.appendChild(dv);
         
-        var nombre = "classCuan" +(+contExpCu-1);
-        //alert(nombre);
-        //busca la clase
-        var cN = document.getElementById(nombre);
-        //alert(cN.value);
+        //busca la clase de la relacion
+        //numero de cuantificadores en pantalla
+        var ncuan = listaCuantificadores.length;
+        var nombre = "classCuan" +(ncuan-1);
+        var cN = document.getElementById(nombre);      
         cargarAtributos(cN.value, "Sel"+ndiv+1);
+          
+        //alert(cN.value);
+        
         
         
         
     }
     
     
+   
     
     //armar predicado
-    
     function armarPredicado(name,div){
         var lp = document.getElementsByName(name);
         var texto  ="";
@@ -647,10 +780,31 @@
              texto = texto +" "+ lp[x].value;
         }
         
-        
-        agregarTexto(div,texto);
+        agregarTextoo(div,texto);
         var ven =  name.toString().substr(3, name.lenth) ;
+        //actualiza el contenido del texto de cuantificador
+        var con = listaCuantificadores.length;
+        
+        agregarConector();
+        
+        //cambia el cuantificador
+        ActualizarExpre('textCuanti'+(con-1),'lCuan'+(con-1));
+        
+        
+        //agrega el elemento a la lista de expresiones del cuantificador
+        var cuan = listaCuantificadores[con-1];
+        var lEx = listaExpreCuanti[cuan];
+
+        
+        //alert(lEx.length);
+        //si hay mas de un elemento en el cuantificador activa el boton
+        //para agregar el contenido del cuantificador
+         
+         deshabilitar("varCuantificador"+(con-1), true);
+         deshabilitar("agreCuan"+(con-1),false);
+        
         cambiarVentana(ven, "");
+             
     }
     
     
@@ -692,13 +846,12 @@
         for(var i=0;i<opciones.length;i++){
             var t = document.createElement("input");
             t.setAttribute("id", id+i);
+            //alert(id+i);
             t.setAttribute("name", id);
             t.setAttribute("type", "radio");
             t.setAttribute("value", opciones[i]);
-            
             if(i==0){
               t.setAttribute("checked", "true");
-              
            }
            var _text = document.createTextNode("  "+opciones[i]);
             div.appendChild(t);
@@ -724,11 +877,80 @@
         
     }
 
-/*
-   function agregarTexto(elem,text){alert('Entra');
+   function agregarTextoo(elem,text){//alert('Entra');
        var t = document.getElementById(elem);
        t.value = text;
    }
-   */
-  
+   
+   
+   
+   var contDum = 65
+   function crearVarDummy(){
+       if(contDum == 90){
+           contDum=65;
+       }
+       return String.fromCharCode(contDum++)
+   }
+   
+   
+
+//PARA CUANTIFICADORES
+//agrega a ncuanti la expresion epxre
+   function agregarExpreCuanti(ncuanti,expre){
+       if(listaExpreCuanti[ncuanti]==undefined){
+           var arr = new Array();
+           arr.push(expre);
+           listaExpreCuanti[ncuanti] =  arr;
+       }
+       else{
+           var ar = listaExpreCuanti[ncuanti] ;
+           ar.push(expre);
+       }
+   }
+   
+   //Arma la expresion de un cuantificador
+   function  armarExpCuan(cuanti){
+       var expe = "";
+       var arr = listaExpreCuanti[cuanti];
+       if(arr == undefined){
+           return expe;
+       }
+       for(var i = 0;i<arr.length;i++){
+           expe = expe + " "+arr[i];
+       }
+       
+       return expe;
+   }
+   
+   
+   
+   function deshabilitar(nombre,v){
+       document.getElementById(nombre).disabled=v;
+   }
+   
+   
+   /*Agrega el contenido del primer cuantidicador a OCL*/
+   function addContenidoCuan(texto){
+       var t = document.getElementById(texto).value;
+       agregarTexto('textoOCL',t);
+       //Coloca el predicado en la lista visual
+       cargarPredicados("listaPredicados",t);
+       t.value="";
+       
+       //vacia cuantificador;
+       var c = listaCuantificadores[listaCuantificadores.length -1];
+       vaciarCuantificador(c);
+       cambiarVentana("v4_2_2", "");
+   }
+   
+   function añadirContCuantiOCL(texto){
+      
+       
+   }
+   
+   /*Elimina el contenido de un cuantificador*/
+   function vaciarCuantificador(cuantificador){
+       listaExpreCuanti[cuantificador]  = new Array();
+   }
+   
   
