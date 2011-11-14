@@ -54,6 +54,12 @@
         </c:forEach>    
 
 
+        //CONECTORES
+        var mapConec = new Array();
+        <c:forEach items="${listaconn}" var="p" >
+            mapConec.push(p)
+        </c:forEach>
+            mapConec.push("AND","OR");
 
 
     </script>
@@ -134,7 +140,6 @@
           <select id="conector"  >
                 <option >AND</option>
                 <option >OR</option>
-    
                             <c:forEach items="${listaconn}" var="p" >
                                <option value="${p.connname}">${p.connname}</option>
                             </c:forEach>
@@ -147,7 +152,7 @@
     
     <div   id="v4_1" hidden="true" >
         <hr/>
-        <h2>Insertarr</h2>
+        <h2>Insertar</h2>
         <input id="pred" checked="true" type=radio name="selec" value="Predicado"  >Predicado</input>
         <input id ="cuanti" type=radio name="selec" value="Cuantificador">Cuantificador</input>
                     <br/>
@@ -242,7 +247,7 @@
     
     
     <!-- CUANTIFICADOR-->
-    <div id="v4_2_2" >
+    <div id="v4_2_2" hidden="true"  >
      <hr/>
     <h2>CUANTIFICADOR</h2>    
         
@@ -257,12 +262,12 @@
         </tr>
         <tr>
             <td><!-- Relaciones -->
-                <select id="listaRelCuan" name="lCuan" onchange ="cambiaCuanti('textCuanti','lCuan','listatablas')" >
+                <select id="listaRelCuan" name="lCuan0" onchange ="cambiaCuanti('textCuanti0','lCuan0')" >
                     
                </select>
             </td>
             <td>
-                <select id="listaCuan" name="lCuan" onchange ="cambiaCuanti('textCuanti','lCuan','listatablas')" >
+                <select id="listaCuan" name="lCuan0" onchange ="cambiaCuanti('textCuanti0','lCuan0')" >
                       <c:forEach items="${listaquan}" var="p" >
                                <option value="${p}">${p}</option>
                       </c:forEach>
@@ -271,25 +276,30 @@
               
             </td>
             <td><!-- Cuantificadores-->
-                <input id="varCuantificador" name="lCuan" type="text" onchange ="cambiaCuanti('textCuanti','lCuan','listatablas')" onkeyup="variableNoNumerica(value,'vCuantificador')"></input>
+                <input id="varCuantificador0"  name="lCuan0" type="text" onchange ="cambiaCuanti('textCuanti0','lCuan0')" onkeyup="variableNoNumerica(value,'vCuantificador')"></input>
             </td>
             <td><!-- Texto Cuantificadores-->
-                <textarea id="textCuanti" type="text" disabled="true" cols="60%"> </textarea>
+                <textarea id="textCuanti0" type="text" disabled="true" cols="60%"> </textarea>
             </td>
         </tr> 
     </table>
         
    
-    <div id="vCuantificador" style="color:#FF0000;" hidden="true" >Variable del cuantificador no válida</div>
+    <div hidden="true" id="vCuantificador" style="color:#FF0000;" >Variable del cuantificador no válida</div>
      
+    
+    
     <!-- TEXTO QUE SE COPIARA A LA EXPRESION DENTRO DEL CUANTIFICADOR-->
-    <input type="text" id="texCuanti0" name="lCuan" onchange="cambiaCuanti('textCuanti','lCuan','listatablas')"></input>
+    <input type="text" id="texCuanti0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
     <!-- NOMBRE DE LA CLASE DEL ATRIBUTO DEL CUANTIFICADOR -->
     <input type="text" id="classCuan0" ></input>
     
+    <!-- VARIABLE DUMMY -->
+    <input type="text" id="varDummy0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
+    
      <button id="atrasv4_2_2" onclick="cambiarVentana('v4_2_2','v4_1')">Atras</button>
      <button id="agreExpreCuan" onclick="crearVentanasRec('recuCuanti')" >Agregar Expresion al cuantificador</button>
-    <button id="agreCuan" >Agregar Cuantificador</button>
+     <button id="agreCuan0" disabled="true" onclick="addContenidoCuan('textCuanti0')">Agregar Cuantificador</button>
     </div>
     
     
@@ -304,7 +314,7 @@
     
     
     
-    <button onclick="agregarDivEpresiones('recuCuanti')">prueba</button>
+    <button onclick="habilitar('varCuantificador0')" >prueba</button>
     
   </body>
 </html>
