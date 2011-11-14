@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -180,10 +181,17 @@ public class parsearArchivoPersistencia {
         Class userClass = Class.forName(clase);
         Field[] userFields = userClass.getDeclaredFields();
         for(int i = 0; i< userFields.length;i++){
-            //System.out.println(">>>>>>"+userFields[i]);
+            
             String nClase = userFields[i].getType().getSimpleName();
+            //System.out.println("++++++"+userFields[i].getType());
             if(nClase.equals("Collection")){
-                relaciones.add(clase + " "+userFields[i].getName());
+                //Busca clase entre <>
+                String paquete = userFields[i].getGenericType().toString();
+                int i2 = paquete.indexOf("<");
+                int i3 = paquete.indexOf(">");
+                String clase2 = paquete.substring(i2+1, i3);
+                
+                relaciones.add(clase2 + " "+userFields[i].getName());
             }
            
         }

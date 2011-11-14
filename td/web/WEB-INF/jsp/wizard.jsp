@@ -105,8 +105,8 @@
 
 
         
-        
-        <div id ="listaPredicado" style="border-width: 2px; border-style: dotted; border-color: red;
+    <!-- border-width: 2px; border-style: dotted; border-color: red;-->    
+        <div id ="listaPredicado" style="
             position:relative;top:0px;right:30%;
             float: right; height: 300px; width: 400px ;
             ">
@@ -290,12 +290,12 @@
     
     
     <!-- TEXTO QUE SE COPIARA A LA EXPRESION DENTRO DEL CUANTIFICADOR-->
-    <input type="text" id="texCuanti0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
+    <input hidden="true" type="text" id="texCuanti0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
     <!-- NOMBRE DE LA CLASE DEL ATRIBUTO DEL CUANTIFICADOR -->
-    <input type="text" id="classCuan0" ></input>
+    <input hidden="true" type="text" id="classCuan0" ></input>
     
     <!-- VARIABLE DUMMY -->
-    <input type="text" id="varDummy0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
+    <input hidden="true" type="text" id="varDummy0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
     
      <button id="atrasv4_2_2" onclick="cambiarVentana('v4_2_2','v4_1')">Atras</button>
      <button id="agreExpreCuan" onclick="crearVentanasRec('recuCuanti')" >Agregar Expresion al cuantificador</button>
@@ -304,7 +304,7 @@
     
     
     <!-- AQUI SE AGREGARAN RECURSIVAMENTE LOS CUANTIFICADORES -->
-    <div id="recuCuanti" >
+    <div hydden="true" id="recuCuanti" >
         
     </div>
     
@@ -314,7 +314,7 @@
     
     
     
-    <button onclick="habilitar('varCuantificador0')" >prueba</button>
+    <button hidden="true" onclick="habilitar('varCuantificador0')" >prueba</button>
     
   </body>
 </html>
