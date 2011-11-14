@@ -173,6 +173,8 @@
         //Agrega primer text area donde se escribira en el cuantificador 
          listaCuantificadores.push("texCuanti0");
          
+         //activa la dummy
+         auxbDummy();
          //alert(atributosSelec);
       }
       
@@ -192,7 +194,7 @@
       
       
       
-      
+var listaCargada = false;      
       //Verifica cual radioboton esta seleccionado y prepara para el siguiente div
       function verificarRadioBotton(r1,r2,v1,v2,v3){
           radio1 = document.getElementById(r1);
@@ -204,21 +206,25 @@
               cargarAtributos(tabla, "listaAtt");
           }//Cuantificador
           else{
-               //busca el drop list
-               var rList = document.getElementById("listaRelCuan");
-               //busca 
-               
-               //prepara la lista de relaciones
-               var listaR = mapR[tabla];
-               for ( var x = 0; x < listaR.length; x++ ) {
-                    _option = document.createElement('option');
-                    //1 para que salga el nombre del atributo
-                    var _text = document.createTextNode((listaR[x].split(" "))[1]);
-                    _option.appendChild(_text);
-                    rList.appendChild(_option); 
-                    _option.value = listaR[x];
-                    
-               }//DUMMY
+               if(!listaCargada){
+                   //busca el drop list
+                   var rList = document.getElementById("listaRelCuan");
+                   //busca 
+
+                   //prepara la lista de relaciones
+                   var listaR = mapR[tabla];
+                   for ( var x = 0; x < listaR.length; x++ ) {
+                        _option = document.createElement('option');
+                        //1 para que salga el nombre del atributo
+                        var _text = document.createTextNode((listaR[x].split(" "))[1]);
+                        _option.appendChild(_text);
+                        rList.appendChild(_option); 
+                        _option.value = listaR[x];
+
+                   }
+               }
+               listaCargada = true;
+               ////DUMMY
                //busca la variable dummy para el cuantificador
                //var dum = crearVarDummy();
                //var e = document.getElementById("varDummy0");
@@ -235,6 +241,7 @@
 /// VERIFICA SI NECESITA UN CONECTOR
 //Si no necesita conector envia a ventana1 si lo necesita envia a ventana2
      function necesitaConector(ventanaOrigen,ventana1,ventana2){
+    
          if(predicados.length>0){
              cambiarVentana(ventanaOrigen, ventana2);
          }
@@ -245,6 +252,15 @@
      }
 
 
+//func dum
+function auxbDummy(){
+          var tabla = document.getElementById("listatablas").value;
+          var tablaaux = tabla.split('.');
+          var dummyA=tablaaux[1];
+          var dummy= dummyA.charAt(0);
+          //Agrega la variable dummy para ser usada internamente
+          document.getElementById("varDummy0").value = dummy;
+}
 
 //Lista los predicado creados en el cuadro derecho
     function cargarPredicados(idtabla,texto){
@@ -932,6 +948,13 @@
    /*Agrega el contenido del primer cuantidicador a OCL*/
    function addContenidoCuan(texto){
        var t = document.getElementById(texto).value;
+       
+       //busca el conector
+       
+       if(predicados.length>0){
+              var c =  document.getElementById('conector');
+              t = c.value + " "+t;
+          }
        agregarTexto('textoOCL',t);
        //Coloca el predicado en la lista visual
        cargarPredicados("listaPredicados",t);
@@ -940,6 +963,7 @@
        //vacia cuantificador;
        var c = listaCuantificadores[listaCuantificadores.length -1];
        vaciarCuantificador(c);
+       deshabilitar("agreCuan0", true);
        cambiarVentana("v4_2_2", "");
    }
    
