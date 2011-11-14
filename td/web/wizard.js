@@ -305,7 +305,7 @@ function auxbDummy(){
         //Saca el predicado de la lista de predicados
         var pos = tr.id;
         
-        delete predicados[pos];
+        delete predicados[pos]; 
         //predicados.slice(pos, pos);
         actualizarTexto('textoOCL');
        
@@ -948,16 +948,42 @@ function auxbDummy(){
    /*Agrega el contenido del primer cuantidicador a OCL*/
    function addContenidoCuan(texto){
        var t = document.getElementById(texto).value;
+       var parabre=document.getElementById("form3").abrepredi;
+       var parcierra=document.getElementById("form3").predicierra;
        
        //busca el conector
        
        if(predicados.length>0){
+           
+            if(parabre.checked){
+              
+              t= "(" +t  ;
+          }
               var c =  document.getElementById('conector');
               t = c.value + " "+t;
+             
+              
+              
           }
+          else{
+               if(parabre.checked){
+              
+              t= "( "+t  ;
+              
+              
+          }}
+          
+           
+          
+          if(parcierra.checked){
+              
+              t= t + " )";
+          }
+          
+       cargarPredicados("listaPredicados",t);   
        agregarTexto('textoOCL',t);
        //Coloca el predicado en la lista visual
-       cargarPredicados("listaPredicados",t);
+      // cargarPredicados("listaPredicados",t);
        t.value="";
        
        //vacia cuantificador;
