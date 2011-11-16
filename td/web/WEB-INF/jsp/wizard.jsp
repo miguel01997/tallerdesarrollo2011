@@ -57,7 +57,7 @@
         //CONECTORES
         var mapConec = new Array();
         <c:forEach items="${listaconn}" var="p" >
-            mapConec.push(p)
+            mapConec.push("${p.connname}")
         </c:forEach>
             mapConec.push("AND","OR");
 
