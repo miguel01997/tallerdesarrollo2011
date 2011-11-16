@@ -8,7 +8,7 @@
       
   
   //TEXTO
-      var textoInicio = "SELECT ( ";
+      var textoInicio = "select( ";
       var textoFin = " )";
       var atributosSelec=new Array();
       var listaatributos=new Array();
@@ -17,6 +17,7 @@
       //Lista donde para cada cuantificador se guardan sus expresiones <<cuanti><arreExpre>>
       var listaExpreCuanti = new Array();
       var contExpCu = 0;
+      var primera_vez=0;
   
   
       function llenarlista(id,tabla){
@@ -91,6 +92,7 @@
           
           var dummy= dummyA.charAt(0);
           
+          
           //Agrega la variable dummy para ser usada internamente
           document.getElementById("varDummy0").value = dummy;
           
@@ -106,6 +108,15 @@
               
               text= text + " (";
           }
+          
+          if(primera_vez==0){
+              
+              
+              text=dummy+"|"+ text;
+              primera_vez++;
+          }
+          
+          
           
           
           //se le concatena la tabla
@@ -381,7 +392,7 @@ function auxbDummy(){
          if(tieneNumero(variabled)){
             variabled = "";
         }
-        textoCuan=dummy+"."+relacion+"->"+cuanti+"("+variabled+"| "+expre+")";
+        textoCuan=dummy+"|"+dummy+"."+relacion+"->"+cuanti+"("+variabled+"| "+expre+")";
         var textoC =document.getElementById(nCuanti);
         textoC.value= textoCuan;
         return textoCuan;
@@ -951,6 +962,8 @@ function auxbDummy(){
        var t = document.getElementById(texto).value;
        var parabre=document.getElementById("form3").abrepredi;
        var parcierra=document.getElementById("form3").predicierra;
+       
+       
        
        //busca el conector
        
