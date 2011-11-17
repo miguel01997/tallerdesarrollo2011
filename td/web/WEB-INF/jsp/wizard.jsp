@@ -61,6 +61,7 @@
             mapConec.push("${p.connname}")
         </c:forEach>
             mapConec.push("AND","OR");
+            
 
 
     </script>
@@ -70,7 +71,8 @@
   
 
   <body>
-   
+      <form:form action="wizardResult.htm" commandName="resultw" id="form">
+          <input type="hidden" name="conectoresA" id="conectoresA" />
       <div id="v0" >   
 
       <select id="listatablas" onchange="llenarlista('uno', value)" >
@@ -79,16 +81,16 @@
                              <option value="${p.key}">${p.key}</option>
                             </c:forEach>
                 
-                </select>
+      </select>
+          <input type="hidden" name="tabla" id="tabla" value="" />
     
-    
-          <form id="form1">
+<!--          <form id="form1">-->
     
     <p id ="uno"></p>
     
-          </form>
+<!--          </form> -->
     
-    <button onclick="atributosSeleccionado('v0', 'marcoTextoOCL')">Siguiente</button>
+    <button onclick="atributosSeleccionado('v0', 'marcoTextoOCL');return false;">Siguiente</button>
 
 </div>
 
@@ -120,10 +122,11 @@
         
         <h2>OCL</h2>
         <!-- AREA DONDE SE COLOCA EL TEXTO OCL-->
-       <textarea rows="10" cols="60%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
+        <textarea rows="10" cols="60%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
+        <input type="hidden" name="condicion" id="condicion" value="" />
         <br/>
 
-       <button id="agregarOCL" onclick="necesitaConector('v4_2_1','v4_1','v4_0')">Agregar elemento</button>
+       <button id="agregarOCL" onclick="necesitaConector('v4_2_1','v4_1','v4_0'); return false;">Agregar elemento</button>
         
        
             
@@ -147,8 +150,8 @@
                             </c:forEach>
           </select>
           <br/>
-          <button id="sig_v4_2_1v1" onclick="ocultarVentana('v4_0')" >Atras</button>
-          <button id="sig_v4_2_1v2" onclick="cambiarVentana('v4_0','v4_1')" >Siguiente</button>
+          <button id="sig_v4_2_1v1" onclick="ocultarVentana('v4_0');return false;" >Atras</button>
+          <button id="sig_v4_2_1v2" onclick="cambiarVentana('v4_0','v4_1');return false;" >Siguiente</button>
         
     </div>
     
@@ -158,8 +161,8 @@
         <input id="pred" checked="true" type=radio name="selec" value="Predicado"  >Predicado</input>
         <input id ="cuanti" type=radio name="selec" value="Cuantificador">Cuantificador</input>
                     <br/>
-                    <button id="Atrasv4_1" onclick="ocultarVentana('v4_1')">Atras</button>
-                    <button id="sig_v4_2_1" onclick="verificarRadioBotton('pred','cuanti','v4_1','v4_2_1','v4_2_2')">Siguiente</button>
+                    <button id="Atrasv4_1" onclick="ocultarVentana('v4_1');return false;">Atras</button>
+                    <button id="sig_v4_2_1" onclick="verificarRadioBotton('pred','cuanti','v4_1','v4_2_1','v4_2_2');return false;">Siguiente</button>
     </div>
     
     <!-- PREDICADO-->
@@ -167,7 +170,7 @@
         <hr/>
         <h2>Predicado</h2>
         
-        <form id="form2">
+<!--        <form id="form2">-->
         <table>
             <tr>
                 <th>(</th>
@@ -196,9 +199,10 @@
                 <!-- Comparadores -->
                 <select id="listaAttC" name="predS" >
              
-    
+                    <option value="=">=</option>
                             <c:forEach items="${listacomp}" var="p" >
                                <option value="${p.compname}">${p.compname}</option>
+                               <input type="hidden" name="terminos" value="${p.compname}" />
                             </c:forEach>
                  </select>
                 </td>
@@ -210,6 +214,7 @@
                             <c:forEach items="${listamod}" var="p" >
                                 
                                <option value="${p.modname}">${p.modname}</option>
+                               <input type="hidden" name="terminos" value="${p.modname}" />
                             </c:forEach>
                  </select>
                 </td>
@@ -221,6 +226,7 @@
                             <c:forEach items="${listapred}" var="p" >
                                
                                <option value="${p.predname}">${p.predname}</option>
+                               <input type="hidden" name="terminos" value="${p.predname}" />
                             </c:forEach>
                  </select>
                 </td>
@@ -237,13 +243,13 @@
                 
           
         </table>
-        </form>
+<!--        </form>-->
 
                 <br/>
         
                      <br/>
-                     <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1')">Atras</button>
-                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','listatablas')">Agregar Predicado</button>
+                     <button id="atrasv4_2_1" onclick="cambiarVentana('v4_2_1','v4_1');return false;">Atras</button>
+                     <button id="agrePred" onclick="agregarTextoPred('textoOCL', 'predS','listatablas');return false;">Agregar Predicado</button>
                      
         </div>
     
@@ -254,7 +260,7 @@
     <h2>CUANTIFICADOR</h2>    
         
     
-    <form id="form3">
+<!--    <form id="form3">-->
     <table id="tablaCuantificador">
         <tr>
             <th>(</th>
@@ -297,7 +303,7 @@
         
            
     </table>
-           </form>
+<!--           </form>-->
         
    
     <div hidden="true" id="vCuantificador" style="color:#FF0000;" >Variable del cuantificador no válida</div>
@@ -312,9 +318,9 @@
     <!-- VARIABLE DUMMY -->
     <input hidden="true" type="text" id="varDummy0" name="lCuan0" onchange="cambiaCuanti('textCuanti0','lCuan0')"></input>
     
-     <button id="atrasv4_2_2" onclick="cambiarVentana('v4_2_2','v4_1')">Atras</button>
-     <button id="agreExpreCuan" onclick="crearVentanasRec('recuCuanti')" >Agregar Expresion al cuantificador</button>
-     <button id="agreCuan0" disabled="true" onclick="addContenidoCuan('textCuanti0')">Agregar Cuantificador</button>
+     <button id="atrasv4_2_2" onclick="cambiarVentana('v4_2_2','v4_1');return false;">Atras</button>
+     <button id="agreExpreCuan" onclick="crearVentanasRec('recuCuanti');return false;" >Agregar Expresion al cuantificador</button>
+     <button id="agreCuan0" disabled="true" onclick="addContenidoCuan('textCuanti0');return false;">Agregar Cuantificador</button>
     </div>
     
     
@@ -325,11 +331,15 @@
     
     
     
+    <script language="Javascript">
+       // alert(document.getElementById("listaPredicado"));
+    </script>
     
     
     
+    <button hidden="true" onclick="habilitar('varCuantificador0');return false;" >prueba</button>
     
-    <button hidden="true" onclick="habilitar('varCuantificador0')" >prueba</button>
-    
+    <input type="submit" value="Consultar" onclick="pasarValores()" />
+    </form:form> 
   </body>
 </html>

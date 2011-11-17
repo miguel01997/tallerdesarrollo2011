@@ -64,4 +64,5 @@
      
      <!-- PARA EL WIZARD -->
      <bean name="wizard" class="wizard.cWizard"></bean>
+     <bean name="wizardResult" class="wizard.cWizardResult"></bean>
 </beans>
