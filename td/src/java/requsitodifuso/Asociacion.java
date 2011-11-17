@@ -22,9 +22,9 @@ public class Asociacion {
       conexion c = new conexion();
        JdbcTemplate j = c.getJdbcTemplate();
        
-       SqlRowSet srs =j.queryForRowSet("SELECT "+
-        "tc.table_name, "+
-        "kcu.column_name, "+
+       SqlRowSet srs =j.queryForRowSet("SELECT tc.constraint_name AS constraint_name ,"+
+        "tc.table_name AS table_name , "+
+        "kcu.column_name AS column_name , "+
         "ccu.table_name AS references_table, "+
         "ccu.column_name AS references_field "+
         "FROM information_schema.table_constraints tc "+
@@ -44,8 +44,8 @@ public class Asociacion {
         "tc.constraint_type='FOREIGN KEY'");
       
        while (srs.next()) {
-            //System.out.println(srs.getString("table_name") + " - " + srs.getString("column_name"));
-            String clave=srs.getString("column_name");
+            System.out.println(srs.getString("table_name") + " - " + srs.getString("column_name"));
+            String clave=srs.getString("constraint_name");
             String valor=srs.getString("table_name") +"."+srs.getString("references_table")+"."+srs.getString("column_name")+"."+srs.getString("references_field");
             
             asociaciones.put(clave, valor);

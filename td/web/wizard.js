@@ -8,8 +8,7 @@
       
   
   //TEXTO
-      var textoInicio = "select( ";
-      var textoFin = " )";
+      
       var atributosSelec=new Array();
       var listaatributos=new Array();
       //Lista de cuantificadores
@@ -18,7 +17,9 @@
       var listaExpreCuanti = new Array();
       var contExpCu = 0;
       var primera_vez=0;
-  
+      var miDummy="";
+      var textoInicio = "select( ";
+      var textoFin = " )";
   
       function llenarlista(id,tabla){
           var elem = document.getElementById(id);
@@ -68,7 +69,11 @@
       //Actualiza texto del div de codigo ocl
       function actualizarTexto(idTexto){
         m =  document.getElementById(idTexto);
-        texto = textoInicio+ predicados.join(" ") + textoFin;
+        var tabla = document.getElementById("listatablas").value;
+          var tablaaux = tabla.split('.');
+          var dummyA=tablaaux[1];
+          var dummy= dummyA.charAt(0);
+        texto =textoInicio+dummy+"|" + predicados.join(" ") + textoFin;
         m.value = texto;
       }
       
@@ -76,6 +81,7 @@
       //Agrega el texto texto a idTexto usada para OCL no tocar
       function agregarTexto(idTexto,texto){
           m =  document.getElementById(idTexto);
+          
           predicados.push(texto);
           this.actualizarTexto(idTexto);
           
@@ -87,12 +93,9 @@
           var text = "";
           var tabla = document.getElementById("listatablas").value;
           var tablaaux = tabla.split('.');
-          
           var dummyA=tablaaux[1];
-          
           var dummy= dummyA.charAt(0);
-          
-          
+       
           //Agrega la variable dummy para ser usada internamente
           document.getElementById("varDummy0").value = dummy;
           
@@ -108,17 +111,6 @@
               
               text= text + " (";
           }
-          
-          if(primera_vez==0){
-              
-              
-              text=dummy+"|"+ text;
-              primera_vez++;
-          }
-          
-          
-          
-          
           //se le concatena la tabla
           for(i = 0;i<names.length;i++){
               if(i==0){
@@ -392,7 +384,7 @@ function auxbDummy(){
          if(tieneNumero(variabled)){
             variabled = "";
         }
-        textoCuan=dummy+"|"+dummy+"."+relacion+"->"+cuanti+"("+variabled+"| "+expre+")";
+        textoCuan=dummy+"."+relacion+"->"+cuanti+"("+variabled+"| "+expre+")";
         var textoC =document.getElementById(nCuanti);
         textoC.value= textoCuan;
         return textoCuan;
