@@ -44,7 +44,7 @@
 
               var atr = arr[i];
               //newhtml += "<input type='checkbox' name=atr"+i+" value='"+atr+"'>"+atr+"<br>";
-              newhtml += "<input type='checkbox' name=checkbox value='"+atr+"'>"+atr+"<br>";
+              newhtml += "<input type='checkbox' name=columnas value='"+atr+"'>"+atr+"<br>";
           }
           elem.innerHTML = newhtml;
           
@@ -99,8 +99,10 @@
           //Agrega la variable dummy para ser usada internamente
           document.getElementById("varDummy0").value = dummy;
           
-          var parabre=document.getElementById("form2").abrepred;
-          var parcierra=document.getElementById("form2").cierrapred;
+          var parabre=document.getElementById("form").abrepred;
+          var parcierra=document.getElementById("form").cierrapred;
+//          var parabre=document.getElementById("form2").abrepred;
+//          var parcierra=document.getElementById("form2").cierrapred;
           //busca conector si es necesario
           if(predicados.length>0){
               var c =  document.getElementById('conector');
@@ -154,7 +156,8 @@
       
       function atributosSeleccionado(ventana1,ventana2,idtabla){
          
-         var checkboxes = document.getElementById("form1").checkbox;
+         var checkboxes = document.getElementById("form").columnas;
+//         var checkboxes = document.getElementById("form1").columnas;
          var cont = 0; 
  
         for (var x=0; x < checkboxes.length; x++) {
@@ -800,15 +803,15 @@ function auxbDummy(){
              texto = texto +" "+ lp[x].value;
         }
         
-        agregarTextoo(div,texto);
+        agregarTextoo(div,texto);alert("Pasa 1");
         var ven =  name.toString().substr(3, name.lenth) ;
         //actualiza el contenido del texto de cuantificador
         var con = listaCuantificadores.length;
         
-        agregarConector();
+        agregarConector();alert("Pasa 2");
         
         //cambia el cuantificador
-        ActualizarExpre('textCuanti'+(con-1),'lCuan'+(con-1));
+        ActualizarExpre('textCuanti'+(con-1),'lCuan'+(con-1));alert("Pasa 3");
         
         
         //agrega el elemento a la lista de expresiones del cuantificador
@@ -820,11 +823,11 @@ function auxbDummy(){
         //si hay mas de un elemento en el cuantificador activa el boton
         //para agregar el contenido del cuantificador
          
-         deshabilitar("varCuantificador"+(con-1), true);
-         deshabilitar("agreCuan"+(con-1),false);
+         deshabilitar("varCuantificador"+(con-1), true);alert("Pasa 4");
+         deshabilitar("agreCuan"+(con-1),false);alert("Pasa 5");
         
         cambiarVentana(ven, "");
-             
+             alert("Sale armarpredicado");
     }
     
     
@@ -889,9 +892,12 @@ function auxbDummy(){
 
 
    function crearBoton(div,titulo,accion){
-         var t = document.createElement("button");
-         var _text = document.createTextNode(titulo);
-         t.appendChild(_text);
+         //var t = document.createElement("button");
+         var t = document.createElement("input");
+         t.setAttribute("type", "button");
+         t.setAttribute("value", titulo);
+         //var _text = document.createTextNode(titulo);
+         //t.appendChild(_text);
          t.setAttribute("onclick", accion);
         div.appendChild(t);
         
@@ -952,8 +958,10 @@ function auxbDummy(){
    /*Agrega el contenido del primer cuantidicador a OCL*/
    function addContenidoCuan(texto){
        var t = document.getElementById(texto).value;
-       var parabre=document.getElementById("form3").abrepredi;
-       var parcierra=document.getElementById("form3").predicierra;
+       var parabre=document.getElementById("form").abrepredi;
+       var parcierra=document.getElementById("form").predicierra;
+//       var parabre=document.getElementById("form3").abrepredi;
+//       var parcierra=document.getElementById("form3").predicierra;
        
        
        
@@ -1007,6 +1015,20 @@ function auxbDummy(){
    /*Elimina el contenido de un cuantificador*/
    function vaciarCuantificador(cuantificador){
        listaExpreCuanti[cuantificador]  = new Array();
+   }
+   
+   function pasarValores(){
+       var textoocl = document.getElementById("textoOCL").value;
+       document.getElementById("condicion").value = textoocl;
+       
+       //Se quita el nombre del paquete al valor seleccionado en listatablas
+       //para obtener el nombre de la tabla
+       var tabla_sel = document.getElementById("listatablas").value;
+       var dotIndex = tabla_sel.lastIndexOf(".");
+       tabla_sel = tabla_sel.substr(dotIndex+1);
+       //alert(tabla_sel);
+       document.getElementById("tabla").value = tabla_sel;
+       document.getElementById("conectoresA").value = mapConec;
    }
    
   
