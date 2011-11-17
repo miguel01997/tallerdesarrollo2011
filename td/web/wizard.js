@@ -17,7 +17,7 @@
       var listaExpreCuanti = new Array();
       var contExpCu = 0;
       var primera_vez=0;
-      var miDummy="";
+      
       var textoInicio = "select( ";
       var textoFin = " )";
   
@@ -152,7 +152,7 @@
       }
       
       
-      function atributosSeleccionado(ventana1,ventana2){
+      function atributosSeleccionado(ventana1,ventana2,idtabla){
          
          var checkboxes = document.getElementById("form1").checkbox;
          var cont = 0; 

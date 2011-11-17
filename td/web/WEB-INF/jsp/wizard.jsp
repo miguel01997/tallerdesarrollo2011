@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <body style="background:#909EB4">
 <head>
     
    <script type="text/javascript" src="wizard.js"></script>
@@ -64,8 +65,8 @@
 
     </script>
 </head>
+     <input type="button" value="Regresar" onclick="window.location='index.htm'" />
     
-    <li><a href="index.htm" accesskey="5" title="">Volver</a></li>
   
 
   <body>
@@ -115,6 +116,7 @@
             </table>
            
        </div> 
+  
         
         <h2>OCL</h2>
         <!-- AREA DONDE SE COLOCA EL TEXTO OCL-->
