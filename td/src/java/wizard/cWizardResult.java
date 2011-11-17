@@ -4,11 +4,14 @@
  */
 package wizard;
 
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import requsitodifuso.Asociacion;
+import requsitodifuso.RequisitoDifuso;
 
 /** 
  *
@@ -49,9 +52,11 @@ public class cWizardResult extends SimpleFormController {
     }
     
     System.out.println(wf.getCondicion());
+    String tabla = wf.getTabla();
+    String condicion = wf.getCondicion();
     System.out.println(wf.getTabla());
     System.out.println("Terminos: "+wf.getTerminos().length);
-    String[] term = wf.getTerminos();
+    String[] term = wf.getTerminos()[0].split(",");
     for (int i =0; i<term.length;i++){
         System.out.println(term[i]);
     }
@@ -60,6 +65,12 @@ public class cWizardResult extends SimpleFormController {
     for (int i =0; i<conec.length;i++){
         System.out.println(conec[i]);
     }
+    
+    Asociacion c= new Asociacion();
+    HashMap<String,String> mapa = new HashMap<String,String>();
+    mapa=c.Asociaciones();
+    RequisitoDifuso rd = new RequisitoDifuso("FR", term, conec, 0.5, cols, tabla,condicion, mapa);
+    String sql = rd.traducir();
     return mv;
     }
      

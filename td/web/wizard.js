@@ -1029,6 +1029,7 @@ function auxbDummy(){
        //alert(tabla_sel);
        document.getElementById("tabla").value = tabla_sel;
        document.getElementById("conectoresA").value = mapConec;
+       document.getElementById("terminos").value = mapTerm;
    }
    
   

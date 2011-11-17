@@ -14,26 +14,26 @@ import java.util.regex.*;
 public class RequisitoDifuso {
 
     //El nombre del requisito
-    static String nombre;
+     String nombre;
     
     //Todos los terminos difusos involucrados con el requerimiento
-    static String[] terminos;
-    static String[] conectoresA;
+     String[] terminos;
+     String[] conectoresA;
     
     //La calibracion del resultado (Cuantitativa: > 1 | Cualitativa: < 1)
-    static double calibracion;
+     double calibracion;
     
     //Los atributos de la tabla presentes en la operacion collect
-    static String[] columnas;
+     String[] columnas;
     
     //La tabla asociada al requisito
-    static String tabla;
+     String tabla;
     
     //La condicion difusa asociada al requisito
-    public static String condicion;
+    public  String condicion;
     
     //Lista auxiliar para el manejo de conectores
-    static LinkedList<String> conectores = new LinkedList<String>();
+     LinkedList<String> conectores = new LinkedList<String>();
     
     //Tabla con toda la informacion del modelo. Aqui deben estar las asociaciones (como "tiene")
     static HashMap <String, String> asociaciones;
@@ -56,7 +56,7 @@ public class RequisitoDifuso {
         }
     }
   
-    public static List<String> reconstruir(String[] condicion, String sep) {
+    public  List<String> reconstruir(String[] condicion, String sep) {
     
         for (int i = 0; i < condicion.length; i++) condicion[i] = condicion[i].trim();            
         List<String> lista = new LinkedList<String>(Arrays.asList(condicion));
@@ -98,12 +98,12 @@ public class RequisitoDifuso {
         return lista;
     }
     
-    public static String traducir() {
+    public  String traducir() {
     
         return traducir(condicion);
     }
     
-    public static String traducir(String condicion) {    
+    public  String traducir(String condicion) {    
         
         //Variables auxiliares
         condicion = condicion.toLowerCase().trim();
@@ -207,7 +207,7 @@ public class RequisitoDifuso {
         }        
     }
     
-    public static String traducirSimple(String condicion) {
+    public  String traducirSimple(String condicion) {
     
         //Variables auxiliares
         condicion = condicion.toLowerCase().trim();
@@ -272,7 +272,7 @@ public class RequisitoDifuso {
         return "ERROR";
     } 
 
-    public static char extraerVariable(String condicion) {
+    public  char extraerVariable(String condicion) {
     
         int barra = condicion.indexOf('|');
         String aux = condicion.substring(0,barra).trim();
@@ -280,7 +280,7 @@ public class RequisitoDifuso {
         return aux.charAt(aux.length()-1);
     }
     
-    public static String traducirCuantificador(String condicion, String tablaAux) {
+    public  String traducirCuantificador(String condicion, String tablaAux) {
     
         if (tablaAux.equals("")) tablaAux = tabla;
     

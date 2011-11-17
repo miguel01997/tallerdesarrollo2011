@@ -62,8 +62,26 @@
         </c:forEach>
             mapConec.push("AND","OR");
             
-
-
+        //Comparadores
+        var mapComp = new Array();
+        <c:forEach items="${listacomp}" var="p" >
+            mapComp.push("${p.compname}");
+        </c:forEach>
+            
+        //Modificadores
+        var mapMod = new Array();
+        <c:forEach items="${listamod}" var="p" >
+            mapMod.push("${p.modname}");
+        </c:forEach>
+            
+        //Predicados
+        var mapPred = new Array();
+        <c:forEach items="${listapred}" var="p" >
+            mapPred.push("${p.predname}");
+        </c:forEach>
+            
+        var mapTerm = mapComp.concat(mapMod, mapPred);
+        alert(mapTerm);
     </script>
 </head>
      <input type="button" value="Regresar" onclick="window.location='index.htm'" />
@@ -73,6 +91,7 @@
   <body>
       <form:form action="wizardResult.htm" commandName="resultw" id="form">
           <input type="hidden" name="conectoresA" id="conectoresA" />
+          <input type="hidden" name="terminos" id="terminos" />
       <div id="v0" >   
 
       <select id="listatablas" onchange="llenarlista('uno', value)" >
@@ -202,7 +221,7 @@
                     <option value="=">=</option>
                             <c:forEach items="${listacomp}" var="p" >
                                <option value="${p.compname}">${p.compname}</option>
-                               <input type="hidden" name="terminos" value="${p.compname}" />
+                               
                             </c:forEach>
                  </select>
                 </td>
@@ -214,7 +233,7 @@
                             <c:forEach items="${listamod}" var="p" >
                                 
                                <option value="${p.modname}">${p.modname}</option>
-                               <input type="hidden" name="terminos" value="${p.modname}" />
+                               
                             </c:forEach>
                  </select>
                 </td>
@@ -226,7 +245,7 @@
                             <c:forEach items="${listapred}" var="p" >
                                
                                <option value="${p.predname}">${p.predname}</option>
-                               <input type="hidden" name="terminos" value="${p.predname}" />
+                               
                             </c:forEach>
                  </select>
                 </td>
