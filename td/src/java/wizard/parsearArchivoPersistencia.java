@@ -85,7 +85,7 @@ public class parsearArchivoPersistencia {
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
         //Document doc = docBuilder.parse (new File("/home/wendy/NetBeansProjects/Taller/td/src/conf/persistence.xml"));
-        Document doc = docBuilder.parse (new File("/var/www/jsp/tds/td/src/conf/persistence.xml"));
+        Document doc = docBuilder.parse (new File("/home/luis/NetBeansProjects/tds/td/src/conf/persistence.xml"));
         doc.getDocumentElement ().normalize ();
         
         //Busca los tag class

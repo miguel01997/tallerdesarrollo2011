@@ -22,8 +22,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Query;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.postgresql.util.PSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -61,6 +63,18 @@ import org.springframework.jdbc.core.RowMapper;
     private String tipo;
     //@OneToMany(mappedBy = "codusuario")
    private Collection<Anuncio> publica;
+   
+   
+    @Transient
+    private String membresia;
+
+    public String getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(String membresia) {
+        this.membresia = membresia;
+    }
 
     public Usuario() {
     }
@@ -152,15 +166,23 @@ import org.springframework.jdbc.core.RowMapper;
     }
 
     public Object mapRow(ResultSet rs, int i) throws SQLException {
-        Usuario u = new Usuario();
-        u.setApellido(rs.getString("apellido"));
+       Usuario u = new Usuario();
+        //u.setApellido(rs.getString("apellido"));
         u.setCodusuario(rs.getInt("codusuario"));
-        u.setEdad(rs.getInt("edad"));
-        u.setEmail(rs.getString("email"));
-        u.setNombre(rs.getString("nombre"));
-        u.setTipo(rs.getString("tipo"));
+        //u.setEdad(rs.getInt("edad"));
+        //u.setEmail(rs.getString("email"));
+        //u.setNombre(rs.getString("nombre"));
+        //u.setTipo(rs.getString("tipo"));
         //falta colgar la coleccion de anuncios
-        
+        u.buscarUsuario();
+       int col = -1; 
+       try{
+           if((col =rs.findColumn("Gr.Memb.")) >1){
+               u.setMembresia(rs.getString(col));
+           }
+       }catch(PSQLException e){
+           u.setMembresia("");
+       }
         return u;
     }
     
@@ -276,8 +298,14 @@ import org.springframework.jdbc.core.RowMapper;
        int numero=j.queryForInt("select count(*) from anuncio where codusuario="+codusuario);
        
        return (numero==0);
+        }
 
-}
-       
+      
+   public List ejecutarQuery(String query){
+     conexion c = new conexion();
+     JdbcTemplate j = c.getJdbcTemplate();
+     List l = j.query(query,this);
+     return l;    
+   }
       
 }

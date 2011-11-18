@@ -26,7 +26,9 @@ import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.postgresql.util.PSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -42,7 +44,7 @@ import org.springframework.jdbc.core.RowMapper;
     @NamedQuery(name = "Anuncio.findByCodanuncio", query = "SELECT a FROM Anuncio a WHERE a.codanuncio = :codanuncio"),
     @NamedQuery(name = "Anuncio.findByFecha", query = "SELECT a FROM Anuncio a WHERE a.fecha = :fecha"),
     @NamedQuery(name = "Anuncio.findByDescripcion", query = "SELECT a FROM Anuncio a WHERE a.descripcion = :descripcion")})
-public class Anuncio implements Serializable{
+public class Anuncio implements Serializable, RowMapper {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
@@ -60,7 +62,17 @@ public class Anuncio implements Serializable{
     @JoinColumn(name = "codusuario", referencedColumnName = "codusuario")
     @ManyToOne
     private Usuario codusuario;
-    //private String id;
+    
+    @Transient
+    private String membresia;
+
+    public String getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(String membresia) {
+        this.membresia = membresia;
+    }
 
     public Anuncio() {
     }
@@ -128,9 +140,20 @@ public class Anuncio implements Serializable{
 
      public Object mapRow(ResultSet rs, int i) throws SQLException {
         Anuncio u  = new Anuncio();
-        //u.setCodanuncio(rs.getInt("codusuario"));
         
         u.setCodanuncio(rs.getInt("codanuncio"));
+        u.buscarAnuncio();
+        
+        int col = -1; 
+       try{
+           if((col =rs.findColumn("Gr.Memb.")) >1){
+               u.setMembresia(rs.getString(col));
+           }
+       }catch(PSQLException e){
+           u.setMembresia("");
+          // System.out.println("Consulta no difusa");
+       }
+        /*
         //u.codusuario
         //u.setCodvehiculo(codvehiculo);
        Usuario user = new Usuario();
@@ -138,7 +161,7 @@ public class Anuncio implements Serializable{
          user.setCodusuario(rs.getInt("codusuario"));
          user.buscarUsuario();
         
-        System.out.println("\n\n\n"+rs.getInt("codusuario"));
+       // System.out.println("\n\n\n"+rs.getInt("codusuario"));
         u.setCodusuario(user);
         
        Vehiculo veh = new Vehiculo();
@@ -147,7 +170,7 @@ public class Anuncio implements Serializable{
        u.setCodvehiculo(veh);
         
         u.setDescripcion(rs.getString("descripcion"));
-        u.setFecha(rs.getDate("fecha"));
+        u.setFecha(rs.getDate("fecha"));*/
         
         //u.set
         
@@ -277,12 +300,20 @@ public class Anuncio implements Serializable{
        em.close();
     }
         public boolean VerificarPlaca(){
-        
        conexion c = new conexion();
        JdbcTemplate j = c.getJdbcTemplate();
        int numero=j.queryForInt("select count(*) from anuncio where codvehiculo='"+codvehiculo.getPlaca()+"'");
        return (numero==0);
     }
     
+        
+        
+        
+    public List ejecutarQuery(String q){
+     conexion c = new conexion();
+     JdbcTemplate j = c.getJdbcTemplate();
+     List l = j.query(q,this);
+     return l;    
+   }
   
 }

@@ -7,24 +7,31 @@ package beans;
 import Dao.conexion;
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.postgresql.util.PSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.validation.Errors;
@@ -60,6 +67,18 @@ import org.springframework.validation.Validator;
     private Integer anio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codmodelo")
     private Collection<Vehiculo> tiene;
+    
+    @Transient
+    private String membresia;
+
+    public String getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(String membresia) {
+        this.membresia = membresia;
+    }
+    
 
     public Modelo() {
     }
@@ -135,16 +154,11 @@ import org.springframework.validation.Validator;
     public String toString() {
         return "beans.Modelo[ codmodelo=" + codmodelo + " ]";
     }
-
-    /*public Object mapRow(ResultSet rs, int i) throws SQLException {
-     Modelo m = new Modelo();
-     m.setAnio(rs.getInt("anio"));
-     m.setCodmodelo(rs.getInt("codmodelo"));
-     m.setMarca(rs.getString("marca"));
-     m.setNombre(rs.getString("nombre"));
-     falta buscar la coleccion de vehiculos
-     return m;
-    }*/
+    
+   
+    
+    
+    
     
     
     //*********************METODOS AGREGADOS**************************//
@@ -155,6 +169,39 @@ import org.springframework.validation.Validator;
         JdbcTemplate select = c.getJdbcTemplate();
       return select.query("select * from modelo",new  Modelo());
     }*/
+    
+   public Object mapRow(ResultSet rs, int i) throws SQLException {
+     Modelo m = new Modelo();
+     //m.setAnio(rs.getInt("anio"));
+     m.setCodmodelo(rs.getInt("codmodelo"));
+     //m.setMarca(rs.getString("marca"));
+     //m.setNombre(rs.getString("nombre"));
+     m.buscarModelo();
+     
+        int col = -1; 
+       try{
+           if((col =rs.findColumn("Gr.Memb.")) >1){
+               m.setMembresia(rs.getString(col));
+           }
+       }catch(PSQLException e){
+           m.setMembresia("");
+       }
+     //Busca coleccion de vehiculos
+       //Vehiculo v = new Vehiculo();
+       //List l = v.ejecutarQuery("select * from vehiculo where codmodelo='"+m.getCodmodelo()+"'");
+       //m.settiene(l);
+     return m;
+   }
+   
+   
+   
+   public List ejecutarQuery(String query){
+     conexion c = new conexion();
+     JdbcTemplate j = c.getJdbcTemplate();
+     List l = j.query(query,this);
+     return l;    
+   }
+    
     
     
   public List buscarTodosModelos(){
@@ -167,6 +214,8 @@ import org.springframework.validation.Validator;
         
     }
     
+  
+  
     
     
     
@@ -270,9 +319,14 @@ import org.springframework.validation.Validator;
        return (numero==0);
     }
 
-    public Object mapRow(ResultSet rs, int i) throws SQLException {
+   /* public Object mapRow(ResultSet rs, int i) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
+    }*/
+
+    
+    
+    
+    
     
     
 }
