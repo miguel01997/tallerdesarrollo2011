@@ -53,12 +53,16 @@ public class cVehiculo extends SimpleFormController {
     ///Metodo que se ejecuta antes de cargar la pagina
         @Override
     public Map referenceData(HttpServletRequest request) {
+        
+        List vehiculos = (List)request.getAttribute("lista");     
         Map modelo = new HashMap();
         Vehiculo v= new Vehiculo();
-        
-        List vehiculos = v.buscarTodosVehiculos();
+        if(vehiculos == null || vehiculos.isEmpty()){
+            vehiculos = v.buscarTodosVehiculos();
+        }
         modelo.put("lista",vehiculos);
         modelo.put("mensaje", request.getParameter("mensaje"));
+        
         return modelo;
     }
         

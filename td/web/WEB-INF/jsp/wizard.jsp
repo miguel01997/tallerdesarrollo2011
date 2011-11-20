@@ -81,7 +81,7 @@
         </c:forEach>
             
         var mapTerm = mapComp.concat(mapMod, mapPred);
-        alert(mapTerm);
+        //alert(mapTerm);
     </script>
 </head>
      <input type="button" value="Regresar" onclick="window.location='index.htm'" />

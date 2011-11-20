@@ -4,7 +4,10 @@
  */
 package wizard;
 
+import Dao.conexion;
+import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
@@ -25,7 +28,7 @@ public class cWizardResult extends SimpleFormController {
 
         setCommandClass(wizardForm.class);
         setCommandName("resultw");
-        setSuccessView("wizardResult");
+        //setSuccessView("wizardResult");
         setFormView("wizard");
     }
     
@@ -52,7 +55,11 @@ public class cWizardResult extends SimpleFormController {
     }
     
     System.out.println(wf.getCondicion());
-    String tabla = wf.getTabla();
+    String paq_tabla = wf.getTabla();
+    //Obtener el nombre de la tabla
+    int dotindex = paq_tabla.lastIndexOf(".");
+    String tabla = paq_tabla.substring(dotindex+1);
+    
     String condicion = wf.getCondicion();
     System.out.println(wf.getTabla());
     System.out.println("Terminos: "+wf.getTerminos().length);
@@ -66,11 +73,47 @@ public class cWizardResult extends SimpleFormController {
         System.out.println(conec[i]);
     }
     
+    System.out.println("Mostrar como un hashmap? "+wf.isComoHashMap());
+    
+    
     Asociacion c= new Asociacion();
     HashMap<String,String> mapa = new HashMap<String,String>();
     mapa=c.Asociaciones();
     RequisitoDifuso rd = new RequisitoDifuso("FR", term, conec, 0.5, cols, tabla,condicion, mapa);
     String sql = rd.traducir();
+    System.out.println(sql);
+    conexion conex = new conexion();
+    if (wf.isComoHashMap()){
+        List result = conex.ejecutarQuery(sql);
+        mv.addObject("resultado", result);
+        setSuccessView("wizardResult");
+    } else {
+        try{
+            Class clase = Class.forName(paq_tabla);
+            Object obj = clase.getConstructor(new Class[]{}).newInstance((Object[]) null);
+            System.out.println("Objeto creado dinam : "+obj.getClass().getCanonicalName());
+            Class[] methodParameters = new Class[]{java.lang.String.class};
+            Method m = clase.getDeclaredMethod("ejecutarQuery", methodParameters);
+            System.out.println("Metodo cargado dinam.:"+m.toGenericString());
+            Object o = m.invoke(obj, sql);
+            //mv.addObject("lista", o);
+            //this.setSuccessView(tabla.toLowerCase());
+            //response.sendRedirect(tabla.toLowerCase()+".htm");
+            mv.addObject("prueba", "Texto de prueba");
+            mv.addObject("lista", o);
+            mv.setViewName(tabla.toLowerCase());
+            return mv;
+            //System.out.println(o.getClass().getCanonicalName());
+        } catch(Exception e){
+            System.out.println("Error al ejecutar el metodo ");
+            e.printStackTrace();
+        }
+    }
+    System.out.println("\n\n\n***SuccessView del controlador: "+this.getSuccessView());
+    mv.addObject("tabla",tabla);
+    mv.addObject("columnas", cols);
+    
+    
     return mv;
     }
      
