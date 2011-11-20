@@ -28,6 +28,9 @@ public class wizardForm {
     
     //La condicion difusa asociada al requisito
     private String condicion;
+    
+    //
+    private boolean comoHashMap = false;
 
     public wizardForm() {
     }
@@ -86,6 +89,14 @@ public class wizardForm {
 
     public void setTerminos(String[] terminos) {
         this.terminos = terminos;
+    }
+
+    public boolean isComoHashMap() {
+        return comoHashMap;
+    }
+
+    public void setComoHashMap(boolean comoHashMap) {
+        this.comoHashMap = comoHashMap;
     }
     
     

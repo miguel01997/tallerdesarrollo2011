@@ -308,7 +308,9 @@ public class Vehiculo implements Serializable,RowMapper {
      //m.setCodmodelo(codmodelo);
      //m.setColor(rs.getString("color"));
      //m.setMotor(rs.getInt("motor"));
+     try {
      m.setPlaca(rs.getString("placa"));
+     } catch (PSQLException pse) {return null;}
      //m.setPosee(posee);
      //m.setPrecio(rs.getBigDecimal("precio"));
      m.buscarVehiculo();

@@ -6,6 +6,7 @@ package Dao;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -81,6 +82,14 @@ public class conexion {
      public EntityManager getEm() {
         return em;
     }
+     
+     /*
+      * Devuelve una lista de objetos que puede ser mostrada en la 
+      * interfaz
+      */
+     public List<Map<String,Object>> ejecutarQuery(String sql){
+         return this.jdbcTemplate.queryForList(sql);
+     }
 
     
 }

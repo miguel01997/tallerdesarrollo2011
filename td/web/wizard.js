@@ -1024,8 +1024,8 @@ function auxbDummy(){
        //Se quita el nombre del paquete al valor seleccionado en listatablas
        //para obtener el nombre de la tabla
        var tabla_sel = document.getElementById("listatablas").value;
-       var dotIndex = tabla_sel.lastIndexOf(".");
-       tabla_sel = tabla_sel.substr(dotIndex+1);
+       //var dotIndex = tabla_sel.lastIndexOf(".");
+       //tabla_sel = tabla_sel.substr(dotIndex+1);
        //alert(tabla_sel);
        document.getElementById("tabla").value = tabla_sel;
        document.getElementById("conectoresA").value = mapConec;
