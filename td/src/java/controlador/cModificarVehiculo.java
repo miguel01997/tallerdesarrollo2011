@@ -58,6 +58,7 @@ public class cModificarVehiculo extends SimpleFormController {
     Vehiculo v2 = new Vehiculo();
     v2.setPlaca(request.getParameter("id"));
     v2.buscarVehiculo();
+    
     if(!v2.getPlaca().equals(v.getPlaca())){
            mv.addObject("error","No se puede modificar la placa");
            v.setPlaca(request.getParameter("id"));

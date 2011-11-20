@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../interfaz/inicio.html" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="interfaz/verificaciones.js"></script>
 <div id="content"><div class="inner_copy"><a href="http://www.freetemplatesonline.com/">Free Web Templates</a> <a href="http://www.websitetemplates.org/">Website Templates</a> <a href="http://www.webdesign.org/website-design">Website Design</a></div>
     <div class="post">
 	
@@ -17,8 +18,10 @@
             <h2 class="title">Crear Modelo:</h2>
             <br/>
             
-            ${error}
-            ${mensaje}
+           <script>
+             Mensaje("${mensaje}");
+             Mensaje("${error}")
+                </script>
           
         <form:form action="crearModelo.htm" commandName="mm" >
             <table>

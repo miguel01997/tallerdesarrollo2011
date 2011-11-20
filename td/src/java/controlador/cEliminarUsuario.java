@@ -32,28 +32,26 @@ public class cEliminarUsuario extends AbstractController {
             HttpServletResponse response) throws Exception {
            
             JdbcTemplate j = c.getJdbcTemplate();
-            Usuario mm = new Usuario();
-            mm.setCodusuario(new Integer(request.getParameter("id")));
-            mm.buscarUsuario();
+            Usuario v = new Usuario();
+            v.setCodusuario(new Integer(request.getParameter("id")));
+            v.buscarUsuario();
+            //elimina el modelo
+            //System.out.println(v.getPlaca());
             String mensaje="";
-            
-            if(mm.VerificarAnuncio()){
-                 mensaje="usuario.htm?mensaje=Usuario "+mm.getNombre()+
-                     " eliminado ";
-            
-                //elimina el modelo
-                mm.eliminarUsuario();
+            if(v.VerificarAnuncio()){
+                mensaje="usuario.htm?mensaje=Usuario "+v.getNombre()+
+                     " eliminado ";    
+                v.eliminarUsuario();
             }
+            
             else{
-                mensaje="usuario.htm?mensaje=No se puede eliminar este Usuario, "
-                        + "Existe un anuncio que lo esta referenciando"; 
+                mensaje= "usuario.htm?mensaje=No se puede eliminar este usuario, "
+                        + "Existe un anuncio que lo referencia";
+            
             }
-           
-           ModelAndView m = new ModelAndView("usuario");
-           m.addObject("mensajeR",mensaje);
-           //envia el mensaje de que fue eliminado
-           response.sendRedirect(mensaje);
-           
+            ModelAndView m = new ModelAndView("usuario");
+             //envia el mensaje de que fue eliminado
+             response.sendRedirect(mensaje);
            return m;
         
     }
