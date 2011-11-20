@@ -10,6 +10,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../interfaz/inicio.html" %>
+<script type="text/javascript" src="interfaz/verificaciones.js"></script>
 <!DOCTYPE html>
 <div id="content"><div class="inner_copy"><a href="http://www.freetemplatesonline.com/">Free Web Templates</a> <a href="http://www.websitetemplates.org/">Website Templates</a> <a href="http://www.webdesign.org/website-design">Website Design</a></div>
     <div class="post">
@@ -19,8 +20,10 @@
             
             <h2 class="title">Crear Veh&iacute;culo:</h2>
             
-            ${error}
-            ${mensaje}
+            <script>
+             Mensaje("${mensaje}");
+             Mensaje("${error}")
+                </script>
             <br/>
         
  

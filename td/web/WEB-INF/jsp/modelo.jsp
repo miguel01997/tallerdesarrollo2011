@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../interfaz/inicio.html" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="interfaz/verificaciones.js"></script>
 <div id="content"><div class="inner_copy"><a href="http://www.freetemplatesonline.com/">Free Web Templates</a> <a href="http://www.websitetemplates.org/">Website Templates</a> <a href="http://www.webdesign.org/website-design">Website Design</a></div>
     <div class="post">
 	
@@ -18,8 +19,10 @@
             <h1>Modelo</h1>
             
 
-         ${mensaje}
-         ${error}
+       <script>
+             Mensaje("${mensaje}");
+             Mensaje("${error}")
+                </script>
         <table class="tabla">
             <tr>
                 <th>Nombre</th>

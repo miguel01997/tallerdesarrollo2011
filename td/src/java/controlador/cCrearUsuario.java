@@ -2,6 +2,8 @@ package controlador;
 
 import Dao.conexion;
 import beans.Usuario;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -51,6 +53,30 @@ public class cCrearUsuario extends SimpleFormController {
  //   formRegUsuario registro= (formRegUsuario) command;
     Usuario registro= (Usuario) command;
      mv.addObject("cu",registro);
+     //Verifica nombre
+     String nombre=registro.getNombre();
+     Pattern p = Pattern.compile("[a-zA-Z]");
+     Matcher m = p.matcher(nombre);
+     if (!m.find()){
+            mv.addObject("mensaje","El nombre debe ser una cadena de letras");
+     return mv;}
+     
+     //Verifica apellido
+     String apellido=registro.getApellido();
+     p = Pattern.compile("[a-zA-Z]");
+     m = p.matcher(apellido);
+     if (!m.find()){
+            mv.addObject("mensaje","El apellido debe ser una cadena de letras");
+     return mv;}
+     //Verifica edad
+     
+     
+     
+     
+     
+     
+     
+     
      
      registro.crearUsuario();
      mv.addObject("mensaje","Usuario "+ registro.getNombre()+" creado");
@@ -70,6 +96,9 @@ public class cCrearUsuario extends SimpleFormController {
     //Do something...
     return mv;
     }
+    
+    
+   
    
      
 }

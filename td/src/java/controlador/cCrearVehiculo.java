@@ -64,8 +64,9 @@ public class cCrearVehiculo extends SimpleFormController {
         
       
       
-        response.encodeRedirectURL("crearVehicuslo.htm");
+        response.encodeRedirectURL("crearVehiculo.htm");
         
+        try{
         m.crearVehiculo();
         
         mv.addObject("mensaje","Vehículo "+ m.getPlaca()+" creado");
@@ -74,7 +75,15 @@ public class cCrearVehiculo extends SimpleFormController {
         m.setMotor(0);
         m.setPrecio(new BigDecimal(0));
         
+   
+        
+        return mv;}
+        
+        catch(Exception v){
+        mv.addObject("mensaje","Ya existe un vehiculo con esta placa");
         return mv;
+        
+        }
     }
     
     ///Metodo que se ejecuta antes de cargar la pagina

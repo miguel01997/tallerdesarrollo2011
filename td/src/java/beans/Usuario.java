@@ -61,7 +61,7 @@ import org.springframework.jdbc.core.RowMapper;
     private String email;
     @Column(name = "tipo")
     private String tipo;
-    //@OneToMany(mappedBy = "codusuario")
+    @OneToMany(mappedBy = "codusuario")
    private Collection<Anuncio> publica;
    
    
@@ -239,6 +239,7 @@ import org.springframework.jdbc.core.RowMapper;
        conexion c = new conexion();
        EntityManager em = c.getEm();
        em.getTransaction().begin();
+       
        em.persist(this);
        em.getTransaction().commit();
        em.close();

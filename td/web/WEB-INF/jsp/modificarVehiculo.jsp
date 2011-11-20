@@ -13,6 +13,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../interfaz/inicio.html" %>
+<script type="text/javascript" src="interfaz/verificaciones.js"></script>
 <!DOCTYPE html>
 <div id="content"><div class="inner_copy"><a href="http://www.freetemplatesonline.com/">Free Web Templates</a> <a href="http://www.websitetemplates.org/">Website Templates</a> <a href="http://www.webdesign.org/website-design">Website Design</a></div>
     <div class="post">
@@ -24,9 +25,12 @@
             <br/>
 
         
+ <script>
+             Mensaje("${mensaje}");
+             Mensaje("${error}")
+                </script>
 
-
-        <a href="eliminarVehiculo.htm?id=${p.placa}" >Eliminar</a> 
+        <a href="eliminarVehiculo.htm?id=${p.placa}" onclick="return confirmar('¿Está seguro que desea eliminar este modelo?')">Eliminar</a> 
         <br/></br>
         <form:form action="modificarVehiculo.htm?id=${p.placa}" commandName="mm" >
             <table>
@@ -39,9 +43,7 @@
                 <tr>
                     <td>modelo</td>
                     
-                    ${error}
-              ${mensaje}
-                    
+              
                     
                     <td>
                        <form:select path="codmodelo.codmodelo">

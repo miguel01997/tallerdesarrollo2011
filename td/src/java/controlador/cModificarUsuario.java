@@ -52,17 +52,19 @@ public class cModificarUsuario extends SimpleFormController {
     ModelAndView mv = new ModelAndView(getSuccessView());
  //   formRegUsuario registro= (formRegUsuario) command;
     Usuario registro= (Usuario) command;
+    
      mv.addObject("mu",registro);
+     
      String idd= request.getParameter("id");
   
     
-    registro.setCodusuario(new Integer(request.getParameter("id")));
-    System.out.println(registro.getCodusuario()+registro.getNombre()+registro.getApellido()+registro.getEdad()+registro.getEmail());
+    //registro.setCodusuario(new Integer("idd"));
+   // System.out.println(registro.getCodusuario()+registro.getNombre()+registro.getApellido()+registro.getEdad()+registro.getEmail());
     registro.actualizarUsuario();
     
     //mv.addObject("mm",m);
     mv.addObject("mensaje","Usuario "+registro.getNombre()+" modificado.");
-    mv.addObject("p",registro);
+    
     return mv;}
      
      

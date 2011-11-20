@@ -74,11 +74,10 @@ public class cModificarAnuncio extends SimpleFormController {
     String mensaje="";
   
   
-    if (v.VerificarPlaca()){
+   
      v.actualizarAnuncio();
-     mensaje= "=Anuncio "+v.getDescripcion()+" modificado ";}
-    else{
-     mensaje= "No se puede crear 2 anuncios de un mismo vehiculo";}
+     mensaje= "Anuncio "+v.getDescripcion()+" modificado ";
+    
     
     mv.addObject("mensaje", mensaje);
     

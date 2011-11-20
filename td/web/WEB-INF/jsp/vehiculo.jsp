@@ -12,6 +12,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
+<script type="text/javascript" src="interfaz/verificaciones.js"></script>
 <div id="content"><div class="inner_copy"><a href="http://www.freetemplatesonline.com/">Free Web Templates</a> <a href="http://www.websitetemplates.org/">Website Templates</a> <a href="http://www.webdesign.org/website-design">Website Design</a></div>
     <div class="post">
 	
@@ -19,7 +20,11 @@
             <h1>Veh&iacute;culos</h1>
         
         <br/>
-        ${mensaje}
+               
+ <script>
+             Mensaje("${mensaje}");
+             
+                </script>
         <table class="tabla">
             <tr>
                <th>Placa</th>
