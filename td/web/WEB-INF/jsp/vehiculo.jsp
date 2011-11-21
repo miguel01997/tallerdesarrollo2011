@@ -48,7 +48,7 @@
         </table>  
         
         </div>
-		${prueba}	
+			
     </div>
 		
 </div>

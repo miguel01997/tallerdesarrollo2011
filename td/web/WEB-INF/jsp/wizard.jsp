@@ -216,8 +216,10 @@
                 </td>
                 <td>
                 <!-- Comparadores -->
-                <select id="listaAttC" name="predS" >
+                <select id="listaAttC" name="predS" 
+                        onchange="verifComp(value,'listaAttM')" >
              
+                    <option value=" "></option>
                     <option value="=">=</option>
                             <c:forEach items="${listacomp}" var="p" >
                                <option value="${p.compname}">${p.compname}</option>
@@ -227,8 +229,9 @@
                 </td>
                 <td>
                 <!-- Modificador -->
-                 <select id="listaAttM" name="predS" >
-                
+                <select id="listaAttM" name="predS" 
+                        onchange="verifMod(value,'listaAttC')" >
+                 
                      <option value=" "></option>
                             <c:forEach items="${listamod}" var="p" >
                                 

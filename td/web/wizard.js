@@ -1032,4 +1032,16 @@ function auxbDummy(){
        document.getElementById("terminos").value = mapTerm;
    }
    
+   function verifComp(valor,idlistaAttM) {
+       if (valor != " "){
+           document.getElementById(idlistaAttM).value = " ";
+       }
+   }
+   
+   function verifMod(valor,idlistaAttC) {
+       if (valor != " "){
+           document.getElementById(idlistaAttC).value = " ";
+       }
+   }
+   
   
