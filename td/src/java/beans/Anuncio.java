@@ -7,8 +7,10 @@ package beans;
 import Dao.conexion;
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -141,8 +143,33 @@ public class Anuncio implements Serializable, RowMapper {
      public Object mapRow(ResultSet rs, int i) throws SQLException {
         Anuncio u  = new Anuncio();
         
-        u.setCodanuncio(rs.getInt("codanuncio"));
-        u.buscarAnuncio();
+        //Busca todos los atributos
+     ArrayList<String> att = new ArrayList<String>();
+     ResultSetMetaData metaData = rs.getMetaData();
+     for(int o=1;o<metaData.getColumnCount()+1;o++){
+         att.add(metaData.getColumnName(o));
+     }
+        
+        
+        if(att.contains("codvehiculo")){
+           Vehiculo v = new Vehiculo();
+           v.setPlaca(rs.getString("codvehiculo"));
+           v.buscarVehiculo();
+           u.setCodvehiculo(v);
+        }
+     
+        if(att.contains("codusuario")){
+            Usuario uu = new Usuario();
+            uu.setCodusuario(new Integer(rs.getString("codusuario")));
+            uu.buscarUsuario();
+            u.setCodusuario(uu);
+        }
+        if(att.contains("codanuncio"))
+            u.setCodanuncio(rs.getInt("codanuncio"));
+        if(att.contains("fecha"))
+            u.setFecha(rs.getDate("fecha"));
+        if(att.contains("descripcion"))
+            u.setDescripcion(rs.getString("descripcion"));
         
         int col = -1; 
        try{
@@ -153,26 +180,7 @@ public class Anuncio implements Serializable, RowMapper {
            u.setMembresia("");
           // System.out.println("Consulta no difusa");
        }
-        /*
-        //u.codusuario
-        //u.setCodvehiculo(codvehiculo);
-       Usuario user = new Usuario();
-        //user.buscarUsuario(1);
-         user.setCodusuario(rs.getInt("codusuario"));
-         user.buscarUsuario();
-        
-       // System.out.println("\n\n\n"+rs.getInt("codusuario"));
-        u.setCodusuario(user);
-        
-       Vehiculo veh = new Vehiculo();
-       veh.setPlaca(rs.getString("codvehiculo"));
-       veh.buscarVehiculo();
-       u.setCodvehiculo(veh);
-        
-        u.setDescripcion(rs.getString("descripcion"));
-        u.setFecha(rs.getDate("fecha"));*/
-        
-        //u.set
+       
         
         return u;
     }

@@ -362,6 +362,8 @@
     <button hidden="true" onclick="habilitar('varCuantificador0');return false;" >prueba</button>
     
     <input type="submit" value="Consultar" onclick="pasarValores()" />
+    
+    
     </form:form> 
   </body>
 </html>

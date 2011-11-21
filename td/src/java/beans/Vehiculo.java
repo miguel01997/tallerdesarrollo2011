@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.postgresql.util.PSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.MetaDataAccessException;
 
 /**
  *
@@ -47,7 +50,7 @@ import org.springframework.jdbc.core.RowMapper;
     @NamedQuery(name = "Vehiculo.findByPrecio", query = "SELECT v FROM Vehiculo v WHERE v.precio = :precio"),
     @NamedQuery(name = "Vehiculo.findByMotor", query = "SELECT v FROM Vehiculo v WHERE v.motor = :motor"),
     @NamedQuery(name = "Vehiculo.findByFoto", query = "SELECT v FROM Vehiculo v WHERE v.foto = :foto")})
-public class Vehiculo implements Serializable,RowMapper {
+public class Vehiculo implements Serializable, RowMapper {
     @OneToOne(mappedBy = "codvehiculo")
     private Anuncio anuncio;
   //  private static final long serialVersionUID = 1L;
@@ -304,17 +307,31 @@ public class Vehiculo implements Serializable,RowMapper {
     public Object mapRow(ResultSet rs, int i) throws SQLException {
      Vehiculo m = new Vehiculo();
      
-     //m.setAnuncio(anuncio);
-     //m.setCodmodelo(codmodelo);
-     //m.setColor(rs.getString("color"));
-     //m.setMotor(rs.getInt("motor"));
-     try {
-     m.setPlaca(rs.getString("placa"));
-     } catch (PSQLException pse) {return null;}
-     //m.setPosee(posee);
-     //m.setPrecio(rs.getBigDecimal("precio"));
-     m.buscarVehiculo();
+     //Busca todos los atributos
+     ArrayList<String> att = new ArrayList<String>();
+     ResultSetMetaData metaData = rs.getMetaData();
+     for(int o=1;o<metaData.getColumnCount()+1;o++){
+         att.add(metaData.getColumnName(o));
+     }
      
+        if(att.contains("placa"))
+           m.setPlaca(rs.getString("placa"));
+     //coloca modelo
+        if(att.contains("codmodelo")){
+           Modelo mo = new Modelo();
+           mo.setCodmodelo(new Integer(rs.getString("codmodelo")));
+           mo.buscarModelo();
+           m.setCodmodelo(mo);
+        }
+       
+        if(att.contains("precio"))
+        m.setPrecio(rs.getBigDecimal("precio"));
+     
+        if(att.contains("motor"))
+        m.setMotor(rs.getInt("motor"));
+        if(att.contains("color"))
+        m.setColor(rs.getString("color"));
+    
        int col = -1; 
        try{
            if((col =rs.findColumn("Gr.Memb.")) >1){
@@ -324,14 +341,16 @@ public class Vehiculo implements Serializable,RowMapper {
            m.setMembresia("");
        }
         
-     
      //m.setMembresia(membresia);
      return m;
    }
     
      public List ejecutarQuery(String query){
      conexion c = new conexion();
+     //EntityManager em = c.getEm();
+     //List<Vehiculo> l =em.createNativeQuery(query, Vehiculo.class).getResultList();
      JdbcTemplate j = c.getJdbcTemplate();
+     
      List l = j.query(query,this);
      return l;    
    }

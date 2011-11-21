@@ -33,6 +33,7 @@
                <th>Motor</th>
                <th>Modelo</th>
                <th>Foto</th>
+               <th>Membresía</th>
             </tr>
            <c:forEach items="${lista}" var="p" >
                <tr>
@@ -42,6 +43,7 @@
                <td>${p.motor}</td>
                <td><a href="modificarModelo.htm?id=${p.codmodelo.codmodelo}">${p.codmodelo.nombre}</a></td>
                <td>${p.foto}</td>
+               <td>${p.membresia}</td>
                
                </tr> 
            </c:forEach>

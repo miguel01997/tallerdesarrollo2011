@@ -7,7 +7,9 @@ package beans;
 import Dao.conexion;
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
@@ -171,14 +173,27 @@ import org.springframework.jdbc.core.RowMapper;
 
     public Object mapRow(ResultSet rs, int i) throws SQLException {
        Usuario u = new Usuario();
-        //u.setApellido(rs.getString("apellido"));
-        u.setCodusuario(rs.getInt("codusuario"));
-        //u.setEdad(rs.getInt("edad"));
-        //u.setEmail(rs.getString("email"));
-        //u.setNombre(rs.getString("nombre"));
-        //u.setTipo(rs.getString("tipo"));
-        //falta colgar la coleccion de anuncios
-        u.buscarUsuario();
+        
+         
+     ArrayList<String> att = new ArrayList<String>();
+     ResultSetMetaData metaData = rs.getMetaData();
+     for(int o=1;o<metaData.getColumnCount()+1;o++){
+         att.add(metaData.getColumnName(o));
+     }
+     
+     if(att.contains("codusuario"))
+         u.setCodusuario(rs.getInt("codusuario"));
+     if(att.contains("nombre"))
+         u.setNombre(rs.getString("nombre"));
+     if(att.contains("apellido"))
+         u.setApellido(rs.getString("apellido"));
+     if(att.contains("edad"))
+         u.setEdad(rs.getInt("edad"));
+     if(att.contains("email"))
+         u.setEmail(rs.getString("email"));
+     if(att.contains("tipo"))
+         u.setTipo(rs.getString("tipo"));
+       
        int col = -1; 
        try{
            if((col =rs.findColumn("Gr.Memb.")) >1){

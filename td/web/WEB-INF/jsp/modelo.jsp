@@ -28,7 +28,7 @@
                 <th>Nombre</th>
                <th>Marca</th>
                <th>Año</th>
-               
+               <th>Membresía</th>
             </tr>
             
            <c:forEach items="${lista}" var="p" >
@@ -37,6 +37,7 @@
                      <a href="modificarModelo.htm?id=${p.codmodelo}">${p.nombre}  </a></td>
                <td>${p.marca}</td>
                <td>${p.anio}</td>
+               <td>${p.membresia}</td>
                </tr> 
            </c:forEach>
         </table>      

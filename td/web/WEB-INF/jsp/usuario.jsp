@@ -31,6 +31,7 @@
                    <th>Edad</th>
                    <th>Email</th>
                    <th>Tipo</th>
+                   <th>Membresía</th>
                 </tr>
                   <c:forEach items="${lista}" var="p" >
                    <tr>
@@ -40,6 +41,8 @@
                    <td>${p.apellido}</td>
                    <td>${p.edad}</td>
                    <td>${p.email}</td>
+                   <td>${p.tipo}</td>
+                   <td>${p.membresia}</td>
                    </tr> 
                </c:forEach>
             </table>
