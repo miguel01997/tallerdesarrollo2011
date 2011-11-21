@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -172,11 +173,23 @@ import org.springframework.validation.Validator;
     
    public Object mapRow(ResultSet rs, int i) throws SQLException {
      Modelo m = new Modelo();
-     //m.setAnio(rs.getInt("anio"));
-     m.setCodmodelo(rs.getInt("codmodelo"));
-     //m.setMarca(rs.getString("marca"));
-     //m.setNombre(rs.getString("nombre"));
-     m.buscarModelo();
+     
+     
+     ArrayList<String> att = new ArrayList<String>();
+     ResultSetMetaData metaData = rs.getMetaData();
+     for(int o=1;o<metaData.getColumnCount()+1;o++){
+         att.add(metaData.getColumnName(o));
+     }
+     
+     if(att.contains("codmodelo"))
+         m.setCodmodelo(rs.getInt("codmodelo"));
+     
+     if(att.contains("nombre"))
+         m.setNombre(rs.getString("nombre"));
+     if(att.contains("marca"))
+         m.setMarca(rs.getString("marca"));
+     if(att.contains("anio"))
+         m.setAnio(rs.getInt("anio"));
      
         int col = -1; 
        try{

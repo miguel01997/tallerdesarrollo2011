@@ -31,7 +31,7 @@ public class prueba {
         //query = "select predname from pg_catalog.pg_fuzzypred";
         conexion c = new conexion();
         EntityManager em = c.getEm();
-        query = "select placa,precio,motor from vehiculo where motor=joven";
+        query = "select placa,precio from vehiculo where motor=joven";
         List lis = em.createNativeQuery(query, Vehiculo.class).getResultList();
         
         Vehiculo  v = new Vehiculo();
@@ -48,7 +48,7 @@ public class prueba {
         
         System.out.println("\n\n\n**** Lista Vehiculos:"+l.size());
         for(Object u : l){
-            System.out.println(u + " "+ ((Vehiculo)u).getPlaca());
+            System.out.println(u + " "+ ((Vehiculo)u).getPrecio());
            // System.out.println(((Object[])u)[2]);
             //System.out.println(((java.util.Vector)u).get(0).getClass().getCanonicalName());
         }
@@ -63,7 +63,7 @@ public class prueba {
                 String elem = (String) it.next();
                 str += elem+" "+map.get(elem);
             }
-            System.out.println(str);
+            System.out.println(">>"+str);
         }
         
     }

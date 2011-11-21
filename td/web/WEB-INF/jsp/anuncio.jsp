@@ -31,6 +31,7 @@
                <th>Descripci&oacute;n</th>
                <th>Usuario</th>
                <th>Veh&iacute;culo</th>
+               <th>Membresía</th>
                
             </tr>
            <c:forEach items="${lista}" var="p" >
@@ -40,6 +41,7 @@
                <td>${p.descripcion}</td>
                <td><a href="modificarUsuario.htm?id=${p.codusuario.codusuario}">${p.codusuario.nombre} ${p.codusuario.apellido}</a></td>
                <td><a href="modificarVehiculo.htm?id=${p.codvehiculo.placa}">${p.codvehiculo.placa}</a></td>
+               <td>${p.membresia}</td>
                </tr> 
            </c:forEach>
         </table>    
