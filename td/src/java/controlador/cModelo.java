@@ -55,13 +55,16 @@ public class cModelo extends SimpleFormController {
       ///Metodo que se ejecuta antes de cargar la pagina
         @Override
     public Map referenceData(HttpServletRequest request) {
+        List modelos = (List)request.getAttribute("lista");     
         Map modelo = new HashMap();
-        Modelo m = new Modelo();
-        List anuncios = m.buscarTodosModelos() ;
-        modelo.put("lista",anuncios);
-        //recive el mensaje que es enviado por url y lo imprime en la vista
-        modelo.put("mensaje",request.getParameter("mensaje"));
-        return modelo;
+        Modelo v= new Modelo();
+        if(modelo == null || modelo.isEmpty()){
+            modelos = v.buscarTodosModelos();
+        }
+        modelo.put("lista",modelos);
+        modelo.put("mensaje", request.getParameter("mensaje"));
+        
+        return modelo; 
     }
     
    

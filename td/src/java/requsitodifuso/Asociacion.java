@@ -46,7 +46,7 @@ public class Asociacion {
        while (srs.next()) {
             System.out.println(srs.getString("table_name") + " - " + srs.getString("column_name"));
             String clave=srs.getString("constraint_name");
-            String valor=srs.getString("table_name") +"."+srs.getString("references_table")+"."+srs.getString("column_name")+"."+srs.getString("references_field");
+            String valor=srs.getString("references_table") +"."+srs.getString("table_name")+"."+srs.getString("references_field")+"."+srs.getString("column_name");
             
             asociaciones.put(clave, valor);
         }

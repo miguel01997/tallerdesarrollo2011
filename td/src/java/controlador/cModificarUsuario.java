@@ -8,6 +8,8 @@ import Dao.conexion;
 import beans.Usuario;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
@@ -54,11 +56,43 @@ public class cModificarUsuario extends SimpleFormController {
     Usuario registro= (Usuario) command;
     
      mv.addObject("mu",registro);
+     mv.addObject("p",registro);
      
      String idd= request.getParameter("id");
   
+     request.setAttribute("id", idd);   
+    registro.setCodusuario(new Integer(idd));
     
-    //registro.setCodusuario(new Integer("idd"));
+    //Validaciones
+    
+    String nombre=registro.getNombre();
+     Pattern p = Pattern.compile("[a-zA-Z]");
+     Matcher m = p.matcher(nombre);
+     if (!m.find()){
+            mv.addObject("mensaje","El nombre debe ser una cadena de letras");
+     return mv;}
+     
+     //Verifica apellido
+     String apellido=registro.getApellido();
+     p = Pattern.compile("[a-zA-Z]");
+     m = p.matcher(apellido);
+     if (!m.find()){
+            mv.addObject("mensaje","El apellido debe ser una cadena de letras");
+     return mv;}
+     //Verifica edad
+     
+     
+     // verifica correo
+     String correo=registro.getEmail();
+     p = Pattern.compile("^[a-zA-Z0-9_-]{2,15}@[a-zA-Z0-9_-]{2,15}.[a-zA-Z]{2,4}");
+     m=p.matcher(correo);
+     if(!m.matches()){
+         mv.addObject("mensaje","El formato del email es incorrecto");
+     return mv;
+     
+     }
+    
+    
    // System.out.println(registro.getCodusuario()+registro.getNombre()+registro.getApellido()+registro.getEdad()+registro.getEmail());
     registro.actualizarUsuario();
     

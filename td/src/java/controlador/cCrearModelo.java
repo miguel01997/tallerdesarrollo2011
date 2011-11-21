@@ -9,6 +9,8 @@ import beans.Modelo;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,11 +54,20 @@ public class cCrearModelo extends SimpleFormController {
         //Esto es porque regresa a la página
         mv.addObject("mm",m);
         
+     String nombre=m.getNombre();
+     Pattern p = Pattern.compile("[a-zA-Z0-9]");
+     Matcher mm = p.matcher(nombre);
+     if (!mm.find()){
+            mv.addObject("mensaje","El nombre debe ser una cadena de letras o números");
+     return mv;}
+     String marca=m.getMarca();
+     p = Pattern.compile("[a-zA-Z]");
+     mm = p.matcher(marca);
+     if (!mm.find()){
+            mv.addObject("mensaje","La marca debe ser una cadena de letras");
+     return mv;}
         //Se busca si nombre no es vacio
-        if(m.getNombre().equals("")){
-            mv.addObject("error","Error: Nombre vacio");
-            return mv;
-        }
+       
         
          //Se busca si nombre no es vacio
         if(m.getMarca().equals("")){

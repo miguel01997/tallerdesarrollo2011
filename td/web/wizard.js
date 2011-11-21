@@ -490,6 +490,7 @@ function auxbDummy(){
        //  alert(diccionario);
        for(var op = 0; op<diccionario.length;op++){
     //           alert(diccionario[op]);
+    
        }
        return diccionario;
         
@@ -803,15 +804,16 @@ function auxbDummy(){
              texto = texto +" "+ lp[x].value;
         }
         
-        agregarTextoo(div,texto);alert("Pasa 1");
+        agregarTextoo(div,texto);
+        
         var ven =  name.toString().substr(3, name.lenth) ;
         //actualiza el contenido del texto de cuantificador
         var con = listaCuantificadores.length;
         
-        agregarConector();alert("Pasa 2");
+        agregarConector();
         
         //cambia el cuantificador
-        ActualizarExpre('textCuanti'+(con-1),'lCuan'+(con-1));alert("Pasa 3");
+        ActualizarExpre('textCuanti'+(con-1),'lCuan'+(con-1));
         
         
         //agrega el elemento a la lista de expresiones del cuantificador
@@ -823,11 +825,11 @@ function auxbDummy(){
         //si hay mas de un elemento en el cuantificador activa el boton
         //para agregar el contenido del cuantificador
          
-         deshabilitar("varCuantificador"+(con-1), true);alert("Pasa 4");
-         deshabilitar("agreCuan"+(con-1),false);alert("Pasa 5");
+         deshabilitar("varCuantificador"+(con-1), true);
+         deshabilitar("agreCuan"+(con-1),false);
         
         cambiarVentana(ven, "");
-             alert("Sale armarpredicado");
+             
     }
     
     
