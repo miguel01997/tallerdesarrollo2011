@@ -89,7 +89,7 @@
   
 
   <body>
-      <form:form action="wizardResult.htm" commandName="resultw" id="form">
+      <form:form action="wizardResult.htm" commandName="resultw" id="form" >
           <input type="hidden" name="conectoresA" id="conectoresA" />
           <input type="hidden" name="terminos" id="terminos" />
       <div id="v0" >   
@@ -361,8 +361,18 @@
     
     <button hidden="true" onclick="habilitar('varCuantificador0');return false;" >prueba</button>
     
-    <input type="submit" value="Consultar" onclick="pasarValores()" />
     
+    <table>
+        <tr>
+        <td>Valor de Membresía</td>
+        <td><input id="calibracion2"  type="text" value="0.5" onkeyup="varlidarMembresia()" /></td>
+        </tr>
+    </table>
+    
+    
+    <input id="consultar" type="submit" value="Consultar" onclick="pasarValores()" />
+    
+    <input id="calibracion" hidden="true" type="text" value="0.5" />
     
     </form:form> 
   </body>

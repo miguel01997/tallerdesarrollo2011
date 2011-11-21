@@ -1032,6 +1032,9 @@ function auxbDummy(){
        document.getElementById("tabla").value = tabla_sel;
        document.getElementById("conectoresA").value = mapConec;
        document.getElementById("terminos").value = mapTerm;
+       var cal = document.getElementById("calibracion2").value;
+       document.getElementById("calibracion").value = cal;
+       
    }
    
    function verifComp(valor,idlistaAttM) {
@@ -1047,3 +1050,15 @@ function auxbDummy(){
    }
    
   
+function varlidarMembresia(){
+    var mem = document.getElementById('calibracion2').value;
+    var patron = /^0\.(\d)+$|^1(.0+)?$|^\d+$/
+            var c =document.getElementById('consultar')
+    if(!patron.test(mem)){
+        c.disabled=true;
+    }
+    else{
+        c.disabled=false;
+    }
+    
+}

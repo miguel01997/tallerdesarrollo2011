@@ -18,7 +18,15 @@ public class wizardForm {
     private String[] conectoresA;
     
     //La calibracion del resultado (Cuantitativa: > 1 | Cualitativa: < 1)
-    private double calibracion;
+    private String calibracion;
+
+    public String getCalibracion() {
+        return calibracion;
+    }
+
+    public void setCalibracion(String calibracion) {
+        this.calibracion = calibracion;
+    }
     
     //Los atributos de la tabla presentes en la operacion collect
     private String[] columnas;
@@ -29,19 +37,14 @@ public class wizardForm {
     //La condicion difusa asociada al requisito
     private String condicion;
     
+    
     //
     private boolean comoHashMap = false;
 
     public wizardForm() {
     }
 
-    public double getCalibracion() {
-        return calibracion;
-    }
-
-    public void setCalibracion(double calibracion) {
-        this.calibracion = calibracion;
-    }
+    
 
     public String[] getColumnas() {
         return columnas;

@@ -79,6 +79,7 @@ public class cWizardResult extends SimpleFormController {
     Asociacion c= new Asociacion();
     HashMap<String,String> mapa = new HashMap<String,String>();
     mapa=c.Asociaciones();
+    System.out.println("CAAALIBRACCCIOOONNN"+wf.getCalibracion());
     RequisitoDifuso rd = new RequisitoDifuso("FR", term, conec, 0.5, cols, tabla,condicion, mapa);
     String sql = rd.traducir();
     System.out.println(sql);
