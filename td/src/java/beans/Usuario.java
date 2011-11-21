@@ -112,11 +112,7 @@ import org.springframework.jdbc.core.RowMapper;
     public Integer getEdad() {
         return edad;
     }
-    
-    public String getEdad_a() {
-        return String.valueOf(edad);
-    }
-
+   
     public void setEdad(Integer edad) {
         this.edad = edad;
     }
