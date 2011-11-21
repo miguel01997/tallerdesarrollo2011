@@ -88,11 +88,10 @@ public class resulUsuarios extends SimpleFormController {
         ///Metodo que se ejecuta antes de cargar la pagina
         @Override
     public Map referenceData(HttpServletRequest request) {
-        String prueba = (String)request.getAttribute("prueba");
-        System.out.println("\n\n\n### "+prueba);
+        
         List usuarios = (List)request.getAttribute("lista"); 
         Map modelo = new HashMap();
-        modelo.put("prueba", prueba);
+        
         if (usuarios == null )
             usuarios = buscarUsuarios();
         modelo.put("lista",usuarios);
