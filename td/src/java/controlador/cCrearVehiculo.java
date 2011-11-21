@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
@@ -102,12 +104,20 @@ public class cCrearVehiculo extends SimpleFormController {
         
         //Metodo usado para validar
         private String validar(Vehiculo m ){
-           String mensaje = null;
-            //Se busca si nombre no es vacio
-        if(m.getPlaca().equals("")){
+        String mensaje = null;
+           
+        String soloEspacios = "^\\s+$";
+        String nombre = "^\\w+(\\s\\w*)*$";
+        
+        String placa = m.getPlaca();
+        Pattern patron = Pattern.compile(soloEspacios);
+        Matcher ma = patron.matcher(placa);
+        //Se busca si nombre no es vacio
+        if(placa.equals("") || ma.find()){
             mensaje = "Error: Placa vacia";
             return mensaje;
         }
+        
         
         if(m.getCodmodelo().getCodmodelo() == null){
             mensaje = "Error: Modelo vacio";
@@ -115,20 +125,29 @@ public class cCrearVehiculo extends SimpleFormController {
         }
         
         
-         //Se busca si nombre no es vacio
-        if(m.getPrecio() == null){
+         //Se busca si precio no es vacio
+        if(m.getPrecio() == null ){
             mensaje = "Error: Precio vacio";
             return mensaje;
         }
         
-        //Se busca si nombre no es vacio
+        //verifica precio
+        /*String pPrecio = "^\\d+$";
+        System.out.println("**************"+m.getPrecio().toString());
+        ma = Pattern.compile(pPrecio).matcher(m.getPrecio()+"");
+        if(!ma.find()){
+            mensaje = "Error: Precio no valido, debe contener entre 1 y 4 dígitos";
+            return mensaje;
+        }*/
+        
+        //Se busca si motor no es vacio
+        
         if(m.getMotor()== null){
             mensaje = "Error: Motor vacio";
             return mensaje;
         }
         
         return mensaje;
-           
         }
      
 }

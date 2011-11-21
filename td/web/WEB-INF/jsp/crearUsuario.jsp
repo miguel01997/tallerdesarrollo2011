@@ -25,7 +25,7 @@
              <script>
              Mensaje("${mensaje}");
                 </script>
-            <form:form action="crearUsuario.htm" commandName="cu" >
+            <form:form action="crearUsuario.htm" commandName="cu" name="cu"  onsubmit="return verificarEdad()" >
                 <table>
                     <tr>
                         <td>Nombre:</td>
