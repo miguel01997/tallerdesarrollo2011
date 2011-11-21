@@ -27,7 +27,7 @@
             <br/>
         
  
-        <form:form action="crearVehiculo.htm?p=${p.codmodelo}" commandName="mm" >
+        <form:form name="cv" action="crearVehiculo.htm?p=${p.codmodelo}" commandName="mm" onsubmit="return veriCrearVehiculo()" >
             <table>
                 <tr>
                     <td>Placa</td>

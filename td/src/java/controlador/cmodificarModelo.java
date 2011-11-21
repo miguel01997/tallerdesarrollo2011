@@ -7,6 +7,8 @@ package controlador;
 import beans.Modelo;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
@@ -46,7 +48,46 @@ public class cmodificarModelo extends SimpleFormController {
     mv.addObject("p", m);
     //le asigna el id al objeto que lee de la url
     m.setCodmodelo(new Integer(request.getParameter("id")));
-    System.out.println(m.getNombre()+m.getMarca()+m.getAnio()+m.getCodmodelo());
+    //System.out.println(m.getNombre()+m.getMarca()+m.getAnio()+m.getCodmodelo());
+    
+    //se verifica el modelo
+    
+    //Para expresiones regulares
+    /*    String soloLetras = "^[a-zA-Z]+$";
+        String soloEspacios = "^\\s+$";
+        String nombre = "^\\w+(\\s\\w*)*$";
+        
+        
+        Pattern patron = Pattern.compile(soloEspacios);
+        
+        
+        //Se busca si nombre no es vacio
+        Matcher ma = patron.matcher(m.getNombre());
+        if(m.getNombre().equals("") ||  ma.find()){
+            mv.addObject("error","Error: Nombre vacio");
+            return mv;
+        }
+        //verifica si nombre contiene letras
+        ma = Pattern.compile(nombre).matcher(m.getNombre());
+        if(!ma.find()){
+            mv.addObject("error","Error: Nombre no válido");
+            return mv;
+        }
+        
+        ma = Pattern.compile(soloEspacios).matcher(m.getMarca());
+        //Se busca si nombre no es vacio
+        if(m.getMarca().equals("") || ma.find()){
+            mv.addObject("error","Error: Marca vacia");
+            return mv;
+        }
+        
+        mv.addObject("mensaje","Modelo "+ m.getNombre()+" creado");
+        //Borra los valores del objeto
+        m.setNombre("");
+        m.setMarca("");*/
+    
+    
+    
     m.actualizarModelo();
     
     //mv.addObject("mm",m);

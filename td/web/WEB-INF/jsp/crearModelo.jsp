@@ -23,13 +23,12 @@
              Mensaje("${error}")
                 </script>
           
-        <form:form action="crearModelo.htm" commandName="mm" >
+                <form:form   action="crearModelo.htm" commandName="mm"> 
             <table>
                 <tr>
                     <td>Nombre</td>
                     <td><form:input path="nombre" /></td>
                     
-                    </td>
                 </tr>
                 <tr>
                     <td>Marca</td>
@@ -53,7 +52,7 @@
             
             <br />
             
-            <input type="submit" value="Crear" />
+            <input type="submit" value="Crear"  />
             <input type="button" value="Regresar" onclick="window.location='modelo.htm'" />
             
         </form:form>
@@ -66,5 +65,6 @@
 		
 </div>
        
+             
 <%@include file="../../interfaz/sidebar-modelo.html" %>       
 <%@include file="../../interfaz/footer.html" %>   

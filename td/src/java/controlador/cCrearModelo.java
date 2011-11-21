@@ -51,34 +51,40 @@ public class cCrearModelo extends SimpleFormController {
         ModelAndView mv = new ModelAndView(getSuccessView());
         Modelo m = (Modelo)command;
         
+        //Para expresiones regulares
+        String soloLetras = "^[a-zA-Z]+$";
+        String soloEspacios = "^\\s+$";
+        String nombre = "^\\w+(\\s\\w*)*$";
+        
+        
+        Pattern patron = Pattern.compile(soloEspacios);
+        
         //Esto es porque regresa a la página
         mv.addObject("mm",m);
         
-     String nombre=m.getNombre();
-     Pattern p = Pattern.compile("[a-zA-Z0-9]");
-     Matcher mm = p.matcher(nombre);
+     String nombreAux=m.getNombre();
+     Pattern p = Pattern.compile(nombre);
+     Matcher mm = p.matcher(nombreAux);
      if (!mm.find()){
             mv.addObject("mensaje","El nombre debe ser una cadena de letras o números");
      return mv;}
      String marca=m.getMarca();
-     p = Pattern.compile("[a-zA-Z]");
+     p = Pattern.compile(nombre);
      mm = p.matcher(marca);
      if (!mm.find()){
             mv.addObject("mensaje","La marca debe ser una cadena de letras");
      return mv;}
         //Se busca si nombre no es vacio
-       
-        
-         //Se busca si nombre no es vacio
-        if(m.getMarca().equals("")){
-            mv.addObject("error","Error: Marca vacia");
+        Matcher ma = patron.matcher(m.getNombre());
+        if(m.getNombre().equals("") ||  ma.find()){
+            mv.addObject("error","Error: Nombre vacio");
             return mv;
         }
-        
+       
+       
         
         //Crea el modelo
         m.crearModelo();
-        
         mv.addObject("mensaje","Modelo "+ m.getNombre()+" creado");
         //Borra los valores del objeto
         m.setNombre("");

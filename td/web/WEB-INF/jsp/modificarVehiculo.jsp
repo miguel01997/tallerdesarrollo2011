@@ -32,7 +32,7 @@
 
         <a href="eliminarVehiculo.htm?id=${p.placa}" onclick="return confirmar('¿Está seguro que desea eliminar este modelo?')">Eliminar</a> 
         <br/></br>
-        <form:form action="modificarVehiculo.htm?id=${p.placa}" commandName="mm" >
+        <form:form action="modificarVehiculo.htm?id=${p.placa}" commandName="mm" onsubmit="return veriCrearVehiculo()" name="cv" >
             <table>
                 <tr>
                     <td>Placa</td>
