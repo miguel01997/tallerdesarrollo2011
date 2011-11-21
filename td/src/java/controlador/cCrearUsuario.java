@@ -52,15 +52,15 @@ public class cCrearUsuario extends SimpleFormController {
     ModelAndView mv = new ModelAndView(getSuccessView());
  //   formRegUsuario registro= (formRegUsuario) command;
     Usuario registro= (Usuario) command;
-     mv.addObject("cu",registro);
+     mv.addObject("cu",registro); 
      //Verifica nombre
-     String nombre=registro.getNombre();
+    String nombre=registro.getNombre();
      Pattern p = Pattern.compile("[a-zA-Z]");
      Matcher m = p.matcher(nombre);
      if (!m.find()){
             mv.addObject("mensaje","El nombre debe ser una cadena de letras");
      return mv;}
-     
+     System.out.println("**************"+8);
      //Verifica apellido
      String apellido=registro.getApellido();
      p = Pattern.compile("[a-zA-Z]");
@@ -69,6 +69,18 @@ public class cCrearUsuario extends SimpleFormController {
             mv.addObject("mensaje","El apellido debe ser una cadena de letras");
      return mv;}
      //Verifica edad
+     
+     
+     // verifica correo
+     String correo=registro.getEmail();
+     p = Pattern.compile("^[a-zA-Z0-9_-]{2,15}@[a-zA-Z0-9_-]{2,15}.[a-zA-Z]{2,4}");
+     m=p.matcher(correo);
+     if(!m.matches()){
+         mv.addObject("mensaje","El formato del email es incorrecto");
+     return mv;
+     
+     }
+             
      
      
      

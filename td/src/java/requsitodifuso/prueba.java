@@ -20,7 +20,9 @@ public class prueba {
              HashMap<String,String> mapa = new HashMap<String,String>();
              mapa=c.Asociaciones();
                     
-          //  mapa.put("publica", "usuario.anuncio.codusuario.codusuario");  
+            //
+             
+             //mapa.put("publica", "usuario.anuncio.codusuario.codusuario");  
             //mapa.put("tienemv", "modelo.vehiculo.codmodelo.codmodelo");
             
            /* int i = Integer.parseInt(args[0]);
@@ -44,7 +46,7 @@ public class prueba {
             
            // case 1:
                 
-                    String c2 = "select( U| U.edad is   viejo AND U.publica->a_lo_sumo_2(a|  a.codusuario is   cerca_5) )";
+                    String c2 = "select( U| U.edad =   viejo AND U.codusuario =   cerca_5 )";
                     RequisitoDifuso r2 = new RequisitoDifuso("FR2",new String[] { "viejo, cerca_5" }, new String[] { "AND" }, 0.75, new String[] { "edad" }, "usuario", c2, mapa);
                     System.out.println("\n" + r2.condicion);
                     System.out.println("\n" + r2.traducir()); 

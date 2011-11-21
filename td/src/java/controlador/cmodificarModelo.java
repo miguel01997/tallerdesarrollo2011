@@ -43,6 +43,7 @@ public class cmodificarModelo extends SimpleFormController {
     ModelAndView mv = new ModelAndView(getSuccessView());
     Modelo m = (Modelo) command;
     mv.addObject("mm",m);
+    mv.addObject("p", m);
     //le asigna el id al objeto que lee de la url
     m.setCodmodelo(new Integer(request.getParameter("id")));
     System.out.println(m.getNombre()+m.getMarca()+m.getAnio()+m.getCodmodelo());

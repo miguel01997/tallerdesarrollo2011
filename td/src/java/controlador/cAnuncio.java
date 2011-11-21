@@ -57,12 +57,22 @@ public class cAnuncio extends SimpleFormController {
      ///Metodo que se ejecuta antes de cargar la pagina
         @Override
     public Map referenceData(HttpServletRequest request) {
+        List anuncios = (List)request.getAttribute("lista");     
         Map modelo = new HashMap();
-        Anuncio a = new Anuncio();
-        List anuncios = a.buscarTodosAnuncios();
+        Anuncio v= new Anuncio();
+        if(anuncios == null || anuncios.isEmpty()){
+            anuncios = v.buscarTodosAnuncios();
+        }
         modelo.put("lista",anuncios);
+        modelo.put("mensaje", request.getParameter("mensaje"));
         
-        return modelo;
+        return modelo;   
+            
+            
+            
+            
+            
+     
     }
     
     

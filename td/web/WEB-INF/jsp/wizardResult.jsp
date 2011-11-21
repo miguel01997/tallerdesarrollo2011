@@ -12,24 +12,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>ERROR</title>
     </head>
+    <input type="button" value="Regresar" onclick="window.location='index.htm'" />
     <body>
-        <h1>Hello World!</h1><br/>
-        <table> 
-            <tr>
-        <c:forEach items="${columnas}" var="c" >
-            <th>${c}</th>
-        </c:forEach>
-            <th>Gr. Memb.</th>
-        </tr>
-        <c:forEach items="${resultado}" var="res" >
-        <tr>
-            <c:forEach items="${res}" var="valor" >
-                <td>${valor.value}</td>
-        </c:forEach>
-        </tr>
-        </c:forEach>
-            </table>
+        <h2>ERROR PostgresSQL NO PUEDE INTERPRETAR ESTA EXPRESION</h2><br/>
+       
     </body>
 </html>
