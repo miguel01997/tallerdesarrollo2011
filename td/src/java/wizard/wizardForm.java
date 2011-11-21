@@ -18,13 +18,13 @@ public class wizardForm {
     private String[] conectoresA;
     
     //La calibracion del resultado (Cuantitativa: > 1 | Cualitativa: < 1)
-    private String calibracion;
+    private double calibracion;
 
-    public String getCalibracion() {
+    public double getCalibracion() {
         return calibracion;
     }
 
-    public void setCalibracion(String calibracion) {
+    public void setCalibracion(double calibracion) {
         this.calibracion = calibracion;
     }
     

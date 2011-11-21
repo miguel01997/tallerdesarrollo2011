@@ -235,7 +235,7 @@
                      <option value=" "></option>
                             <c:forEach items="${listamod}" var="p" >
                                 
-                               <option value="${p.modname}">${p.modname}</option>
+                               <option value="'${p.modname}'">'${p.modname}'</option>
                                
                             </c:forEach>
                  </select>
@@ -372,7 +372,9 @@
     
     <input id="consultar" type="submit" value="Consultar" onclick="pasarValores()" />
     
-    <input id="calibracion" hidden="true" type="text" value="0.5" />
+    
+    <input type="hidden" name="calibracion" id="calibracion" value="" />
+   
     
     </form:form> 
   </body>

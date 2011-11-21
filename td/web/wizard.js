@@ -1020,6 +1020,7 @@ function auxbDummy(){
    }
    
    function pasarValores(){
+       
        var textoocl = document.getElementById("textoOCL").value;
        document.getElementById("condicion").value = textoocl;
        
@@ -1032,9 +1033,10 @@ function auxbDummy(){
        document.getElementById("tabla").value = tabla_sel;
        document.getElementById("conectoresA").value = mapConec;
        document.getElementById("terminos").value = mapTerm;
+
        var cal = document.getElementById("calibracion2").value;
        document.getElementById("calibracion").value = cal;
-       
+
    }
    
    function verifComp(valor,idlistaAttM) {
