@@ -8,10 +8,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@include file="../../interfaz/inicio.html" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <body style="background:#909EB4">
+<!--    <body style="background:#909EB4">-->
 <head>
     
    <script type="text/javascript" src="wizard.js"></script>
@@ -84,10 +85,12 @@
         //alert(mapTerm);
     </script>
 </head>
-     <input type="button" value="Regresar" onclick="window.location='index.htm'" />
+<!--     <input type="button" value="Regresar" onclick="window.location='index.htm'" />-->
     
   
-
+<div id="content2">
+<!--    <div class="inner_copy2"><a href="http://www.freetemplatesonline.com/">Free Web Templates</a> <a href="http://www.websitetemplates.org/">Website Templates</a> <a href="http://www.webdesign.org/website-design">Website Design</a></div>-->
+    <div class="post">
   <body>
       <form:form action="wizardResult.htm" commandName="resultw" id="form" >
           <input type="hidden" name="conectoresA" id="conectoresA" />
@@ -116,7 +119,7 @@
 
 
     
-</div>
+<!--</div>-->
 
     
     <br/>
@@ -128,8 +131,8 @@
 
         
     <!-- border-width: 2px; border-style: dotted; border-color: red;-->    
-        <div id ="listaPredicado" style="
-            position:relative;top:0px;right:30%;
+        <div id ="listaPredicado" style="border-width: 2px; border-style: dotted; border-color: red;
+            position:relative;top:0px;right:0%;overflow: auto;
             float: right; height: 300px; width: 400px ;
             ">
             <table id="listaPredicados">
@@ -141,7 +144,7 @@
         
         <h2>OCL</h2>
         <!-- AREA DONDE SE COLOCA EL TEXTO OCL-->
-        <textarea rows="10" cols="60%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
+        <textarea rows="10" cols="50%" id="textoOCL"   disabled="true"    >SELECT ()</textarea>
         <input type="hidden" name="condicion" id="condicion" value="" />
         <br/>
 
@@ -361,21 +364,31 @@
     
     <button hidden="true" onclick="habilitar('varCuantificador0');return false;" >prueba</button>
     
-    
-    <table>
+    <br/><br/>
+    <table id="tablaEnviar" hidden="false">
         <tr>
         <td>Valor de Membresía</td>
         <td><input id="calibracion2"  type="text" value="0.5" onkeyup="varlidarMembresia()" /></td>
         </tr>
+        <tr></tr>
+        <tr>
+            <td>
+                <input id="consultar" type="submit" value="Consultar" onclick="pasarValores()" />
+            </td>
+        </tr>
     </table>
     
     
-    <input id="consultar" type="submit" value="Consultar" onclick="pasarValores()" />
+<!--    <input id="consultar" type="submit" value="Consultar" onclick="pasarValores()" />-->
     
     
     <input type="hidden" name="calibracion" id="calibracion" value="" />
    
     
     </form:form> 
+        </div>
+		
+</div>
+    <%@include file="../../interfaz/footer.html" %>   
   </body>
 </html>

@@ -5,6 +5,7 @@
 package wizard;
 
 import Dao.conexion;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -91,8 +92,9 @@ public class cWizardResult extends SimpleFormController {
             mv.setViewName(tabla.toLowerCase());
             return mv;
           
-        } catch(Exception e){
-            System.out.println("Error al ejecutar el metodo ");
+        } catch(InvocationTargetException e){
+            System.out.println("Error al ejecutar el metodo "+e.getCause().getLocalizedMessage()+"\n***");
+            mv.addObject("error",e.getCause().getLocalizedMessage());
             e.printStackTrace();
         }
     }
