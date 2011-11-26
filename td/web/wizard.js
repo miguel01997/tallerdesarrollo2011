@@ -279,6 +279,9 @@ function auxbDummy(){
           var cell2 = row.insertCell(1);
           cell2.innerHTML = "<input type='button' value='X'   onclick=eliminarCeldaPred(this) >  "; 
          //table.innerHTML ="    <tr>       <td>pruebac</td> </tr>";
+         
+         //Coloca la tabla con el boton de Enviar como visible
+         setElemInvisible("tablaEnviar", false);
         
     }
 
@@ -316,6 +319,11 @@ function auxbDummy(){
         actualizarTexto('textoOCL');
        
         predicados.length = predicados.length -1;
+        
+        if (predicados.length == 0){
+            //Coloca la tabla con el boton de Enviar como invisible
+            setElemInvisible("tablaEnviar", true);
+        }
         
     }
     
@@ -1063,4 +1071,8 @@ function varlidarMembresia(){
         c.disabled=false;
     }
     
+}
+
+function setElemInvisible(id,value){
+    document.getElementById(id).hidden = value;
 }

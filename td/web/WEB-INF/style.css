@@ -238,6 +238,31 @@ hr {
 	line-height: normal;
 }
 
+#content2 {
+	float: left;
+	width: 603px;
+}
+
+.post {
+}
+
+.post .title {
+	margin: 0;
+	padding: 20px 20px 0 20px;
+}
+
+.post .entry {
+	padding: 0 20px;
+}
+
+.post .meta {
+	height: 47px;
+	margin: 20px 0 40px 0;
+	padding: 15px 0 0 20px;
+	background: url(images/img07.gif) no-repeat;
+	line-height: normal;
+}
+
 /* Sidebar */
 
 #sidebar {
@@ -347,3 +372,5 @@ hr {
 	float: right;
 }
 #content .inner_copy {border:0;color:#f00;float:left;width:50%!important;margin:-202px 0 0 0;overflow:hidden;line-height:0;padding:0;font-size:12px}
+
+#content2 .inner_copy2 {border:0;color:#f00;float:left;width:50%!important;margin:-202px 0 0 0;overflow:hidden;line-height:0;padding:0;font-size:12px}
