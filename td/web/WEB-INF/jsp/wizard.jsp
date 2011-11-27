@@ -128,10 +128,11 @@
 
     <div id="marcoTextoOCL" hidden="true" >
 
-
+        <!--<div id="nombrePredicado" style="position:relative;top:-20px;right:40%;overflow: auto;
+             float: right; height: 50px; width: 100px ;" >Predicados</div>-->
         
     <!-- border-width: 2px; border-style: dotted; border-color: red;-->    
-        <div id ="listaPredicado" style="border-width: 2px; border-style: dotted; border-color: red;
+        <div id ="listaPredicado" style="border-width: 4px; border-style: inset; border-color: red;
             position:relative;top:0px;right:0%;overflow: auto;
             float: right; height: 300px; width: 400px ;
             ">
@@ -367,7 +368,7 @@
     <br/><br/>
     <table id="tablaEnviar" hidden="false">
         <tr>
-        <td>Valor de Membresía</td>
+        <td>Calibracion</td>
         <td><input id="calibracion2"  type="text" value="0.5" onkeyup="varlidarMembresia()" /></td>
         </tr>
         <tr></tr>
