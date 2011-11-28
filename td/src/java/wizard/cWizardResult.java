@@ -73,7 +73,11 @@ public class cWizardResult extends SimpleFormController {
     String sql = rd.traducir();
     //System.out.println(sql);
     conexion conex = new conexion();
-    if (wf.isComoHashMap()){
+    ModelAndView aux = rd.ejecutarQuery(mv, wf, sql,paq_tabla);
+    if(aux != null){
+       return aux;
+    }
+    /*if (wf.isComoHashMap()){
         List result = conex.ejecutarQuery(sql);
         mv.addObject("resultado", result);
         setSuccessView("wizardResult");
@@ -97,8 +101,7 @@ public class cWizardResult extends SimpleFormController {
             mv.addObject("error",e.getCause().getLocalizedMessage());
             e.printStackTrace();
         }
-    }
- 
+    }*/
     mv.addObject("tabla",tabla);
     mv.addObject("columnas", cols);
     

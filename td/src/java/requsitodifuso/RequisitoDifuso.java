@@ -8,8 +8,13 @@ package requsitodifuso;
  *
  * @author wendy
  */
+import Dao.conexion;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.*;
+import org.springframework.web.servlet.ModelAndView;
+import wizard.wizardForm;
 
 public class RequisitoDifuso {
 
@@ -309,4 +314,43 @@ public class RequisitoDifuso {
             return cuantificador + " ARE " + traducir(cuerpo.substring(barra+1,cuerpo.length()-1));       
         }
     }
+    
+    public ModelAndView ejecutarQuery(ModelAndView mv,wizardForm wf ,String sql,
+            String paq_tabla) 
+            throws NoSuchMethodException, InstantiationException, ClassNotFoundException, IllegalAccessException{
+        conexion conex = new conexion();
+    if (wf.isComoHashMap()){
+        List result = conex.ejecutarQuery(sql);
+        mv.addObject("resultado", result);
+        mv.setViewName("wizardResult");
+        //setSuccessView("wizardResult");
+    } else {
+        try{
+            Class clase = Class.forName(paq_tabla);
+            Object obj = clase.getConstructor(new Class[]{}).newInstance((Object[]) null);
+         
+            Class[] methodParameters = new Class[]{java.lang.String.class};
+            Method m = clase.getDeclaredMethod("ejecutarQuery", methodParameters);
+          
+            Object o = m.invoke(obj, sql);
+        
+            mv.addObject("prueba", "Texto de prueba");
+            mv.addObject("lista", o);
+            mv.setViewName(tabla.toLowerCase());
+            return mv;
+          
+        } catch(InvocationTargetException e){
+            System.out.println("Error al ejecutar el metodo "+e.getCause().getLocalizedMessage()+"\n***");
+            mv.addObject("error",e.getCause().getLocalizedMessage());
+            e.printStackTrace();
+        }
+        
+    }
+        
+        return null;
+    
+    }
+    
+    
+    
 }
